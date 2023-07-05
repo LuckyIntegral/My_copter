@@ -1,4 +1,4 @@
-package my.copter.persistance.sql.type;
+package my.copter.persistence.sql.type;
 
 public enum BrandType {
     DJI("DJI"),

@@ -1,6 +1,6 @@
-package my.copter.persistance.sql.repository;
+package my.copter.persistence.sql.repository;
 
-import my.copter.persistance.sql.entity.BaseEntity;
+import my.copter.persistence.sql.entity.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

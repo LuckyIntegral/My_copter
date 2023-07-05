@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 
 import my.copter.exception.EmptyFieldException;
 import my.copter.exception.EntityNotFoundException;
-import my.copter.persistance.sql.entity.product.CopterImage;
-import my.copter.persistance.sql.repository.product.CopterImageRepository;
+import my.copter.persistence.sql.entity.product.CopterImage;
+import my.copter.persistence.sql.repository.product.CopterImageRepository;
 import my.copter.service.crud.CopterImageCrudService;
-import my.copter.util.ExceptionUtils;
+import my.copter.util.ExceptionUtil;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +50,7 @@ public class CopterImageCrudServiceImpl implements CopterImageCrudService {
     public CopterImage findById(Long id) {
         checkExistById(id);
         return copterImageRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
     }
 
     @Override
@@ -61,22 +61,22 @@ public class CopterImageCrudServiceImpl implements CopterImageCrudService {
 
     private void validateFields(CopterImage image) {
         if (ObjectUtils.isEmpty(image)) {
-            throw new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND);
+            throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
         if (StringUtils.isEmpty(image.getImageUrl())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (ObjectUtils.isEmpty(image.getMainImage())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
     }
 
     private void checkExistById(Long id) {
         if (ObjectUtils.isEmpty(id)) {
-            throw new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND);
+            throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
         if (!copterImageRepository.existsById(id)) {
-            throw new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND);
+            throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
     }
 }

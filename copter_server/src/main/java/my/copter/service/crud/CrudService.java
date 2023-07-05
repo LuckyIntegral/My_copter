@@ -1,6 +1,6 @@
 package my.copter.service.crud;
 
-import my.copter.persistance.sql.entity.BaseEntity;
+import my.copter.persistence.sql.entity.BaseEntity;
 
 import java.util.Collection;
 

@@ -1,11 +1,11 @@
-package my.copter.persistance.sql.entity.product;
+package my.copter.persistence.sql.entity.product;
 
 import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import my.copter.persistance.sql.entity.BaseEntity;
+import my.copter.persistence.sql.entity.BaseEntity;
 
 import java.util.HashSet;
 import java.util.Set;

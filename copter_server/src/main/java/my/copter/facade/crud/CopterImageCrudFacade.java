@@ -1,6 +1,6 @@
 package my.copter.facade.crud;
 
-import my.copter.persistance.sql.entity.product.CopterImage;
+import my.copter.data.dto.product.ImageDto;
 
-public interface CopterImageCrudFacade extends CrudFacade<CopterImage> {
+public interface CopterImageCrudFacade extends CrudFacade<ImageDto> {
 }

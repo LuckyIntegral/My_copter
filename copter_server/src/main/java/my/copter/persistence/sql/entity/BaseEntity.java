@@ -1,4 +1,4 @@
-package my.copter.persistance.sql.entity;
+package my.copter.persistence.sql.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

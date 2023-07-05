@@ -4,16 +4,16 @@ import lombok.AllArgsConstructor;
 
 import my.copter.exception.EmptyFieldException;
 import my.copter.exception.EntityNotFoundException;
-import my.copter.persistance.sql.entity.BaseEntity;
-import my.copter.persistance.sql.entity.product.Copter;
-import my.copter.persistance.sql.entity.product.CopterImage;
-import my.copter.persistance.sql.repository.BaseRepository;
-import my.copter.persistance.sql.repository.product.CopterImageRepository;
-import my.copter.persistance.sql.repository.product.CopterRepository;
-import my.copter.persistance.sql.type.BrandType;
-import my.copter.persistance.sql.type.CategoryType;
+import my.copter.persistence.sql.entity.BaseEntity;
+import my.copter.persistence.sql.entity.product.Copter;
+import my.copter.persistence.sql.entity.product.CopterImage;
+import my.copter.persistence.sql.repository.BaseRepository;
+import my.copter.persistence.sql.repository.product.CopterImageRepository;
+import my.copter.persistence.sql.repository.product.CopterRepository;
+import my.copter.persistence.sql.type.BrandType;
+import my.copter.persistence.sql.type.CategoryType;
 import my.copter.service.crud.CopterCrudService;
-import my.copter.util.ExceptionUtils;
+import my.copter.util.ExceptionUtil;
 
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -52,9 +52,9 @@ public class CopterCrudServiceImpl implements CopterCrudService {
         checkExistById(copterId, copterRepository);
         checkExistById(copterImageId, copterImageRepository);
         Copter copter = copterRepository.findById(copterId)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
         CopterImage image = copterImageRepository.findById(copterImageId)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
         copter.getCopterImages().add(image);
         copterRepository.save(copter);
     }
@@ -65,9 +65,9 @@ public class CopterCrudServiceImpl implements CopterCrudService {
         checkExistById(copterId, copterRepository);
         checkExistById(copterImageId, copterImageRepository);
         Copter copter = copterRepository.findById(copterId)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
         CopterImage image = copterImageRepository.findById(copterImageId)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
         copter.getCopterImages().remove(image);
         copterRepository.save(copter);
     }
@@ -84,7 +84,7 @@ public class CopterCrudServiceImpl implements CopterCrudService {
     public Copter findById(Long id) {
         checkExistById(id, copterRepository);
         return copterRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
     }
 
     @Override
@@ -95,40 +95,40 @@ public class CopterCrudServiceImpl implements CopterCrudService {
 
     private void validateFields(Copter entity) {
         if (ObjectUtils.isEmpty(entity)) {
-            throw new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND);
+            throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
         if (!EnumUtils.isValidEnum(BrandType.class, entity.getBrand().getName())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (StringUtils.isEmpty(entity.getName())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (StringUtils.isEmpty(entity.getDescription())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (StringUtils.isEmpty(entity.getCameraResolution())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (!EnumUtils.isValidEnum(CategoryType.class, entity.getCategoryType().getValue())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (StringUtils.isEmpty(entity.getBattery())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (StringUtils.isEmpty(entity.getFlyTime())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (ObjectUtils.isEmpty(entity.getPrice())) {
-            throw new EmptyFieldException(ExceptionUtils.EMPTY_FIELD_EXCEPTION);
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
     }
 
     private void checkExistById(Long id, BaseRepository<? extends BaseEntity> repository) {
         if (ObjectUtils.isEmpty(id)) {
-            throw new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND);
+            throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
         if (!repository.existsById(id)) {
-            throw new EntityNotFoundException(ExceptionUtils.ENTITY_NOT_FOUND);
+            throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
     }
 }
