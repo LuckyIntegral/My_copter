@@ -51,18 +51,24 @@ public class AuthenticationService {
             case ADMIN -> {
                 user = new Admin();
                 user.setUsername(request.getUsername());
+                user.setFirstName(request.getFirstName());
+                user.setLastName(request.getLastName());
                 user.setPassword(passwordEncoder.encode(request.getPassword()));
                 savedUser = repository.save(user);
             }
             case CUSTOMER -> {
                 user = new Customer();
                 user.setUsername(request.getUsername());
+                user.setFirstName(request.getFirstName());
+                user.setLastName(request.getLastName());
                 user.setPassword(passwordEncoder.encode(request.getPassword()));
                 savedUser = repository.save(user);
             }
             case MANAGER -> {
                 user = new Manager();
                 user.setUsername(request.getUsername());
+                user.setFirstName(request.getFirstName());
+                user.setLastName(request.getLastName());
                 user.setPassword(passwordEncoder.encode(request.getPassword()));
                 savedUser = repository.save(user);
             }

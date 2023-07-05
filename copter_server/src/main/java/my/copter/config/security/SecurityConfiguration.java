@@ -38,13 +38,9 @@ public class SecurityConfiguration {
                         "/v2/api-docs",
                         "/v3/api-docs",
                         "/v3/api-docs/**",
-                        "/swagger-resources",
-                        "/swagger-resources/**",
                         "/configuration/ui",
                         "/configuration/security",
-                        "/swagger-ui/**",
                         "/webjars/**",
-                        "/swagger-ui.html",
                         "/my/drone/open/**",
                         "/my/drone/auth/**"
                 )
@@ -52,7 +48,7 @@ public class SecurityConfiguration {
 
                 .requestMatchers("/my/drone/manager/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 
-                .requestMatchers(GET, "/my/drone/manager/**").hasAnyAuthority(ADMIN_READ.getPermission(), MANAGER_READ.getPermission())
+                .requestMatchers(GET, "/my/drone/manager/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
                 .requestMatchers(POST, "/my/drone/manager/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
                 .requestMatchers(PUT, "/my/drone/manager/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
                 .requestMatchers(DELETE, "/my/drone/manager/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
