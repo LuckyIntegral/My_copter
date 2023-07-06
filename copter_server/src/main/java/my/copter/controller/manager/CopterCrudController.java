@@ -3,7 +3,6 @@ package my.copter.controller.manager;
 import lombok.AllArgsConstructor;
 
 import my.copter.data.dto.product.CopterDto;
-import my.copter.data.dto.product.CopterIdImageIdDto;
 import my.copter.data.response.DataContainer;
 import my.copter.facade.crud.CopterCrudFacade;
 
@@ -27,20 +26,6 @@ public class CopterCrudController {
     public ResponseEntity<DataContainer<Boolean>> createCopter(@RequestBody CopterDto dto) {
         copterCrudFacade.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new DataContainer<>(Boolean.TRUE));
-    }
-
-    @PostMapping("/attach")
-    @PreAuthorize("hasAnyAuthority('admin:create', 'manager:create')")
-    public ResponseEntity<DataContainer<Boolean>> addImageToCopter(@RequestBody CopterIdImageIdDto dto) {
-        copterCrudFacade.attachImage(dto);
-        return ResponseEntity.ok(new DataContainer<>(Boolean.TRUE));
-    }
-
-    @DeleteMapping("/detach")
-    @PreAuthorize("hasAnyAuthority('admin:delete', 'manager:delete')")
-    public ResponseEntity<DataContainer<Boolean>> deleteImageFromCopter(@RequestBody CopterIdImageIdDto dto) {
-        copterCrudFacade.detachImage(dto);
-        return ResponseEntity.ok(new DataContainer<>(Boolean.TRUE));
     }
 
     @PutMapping("/{id}")
