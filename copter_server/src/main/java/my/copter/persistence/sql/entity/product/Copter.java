@@ -25,7 +25,7 @@ public class Copter extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 800)
     private String description;
 
     @Column(name = "camera_resolution", nullable = false)

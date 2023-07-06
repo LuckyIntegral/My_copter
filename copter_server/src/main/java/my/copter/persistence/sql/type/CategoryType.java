@@ -1,10 +1,9 @@
 package my.copter.persistence.sql.type;
 
 public enum CategoryType {
-    RACING("Racing drone"),
-    PHOTOGRAPHY("Aerial photography drone"),
-    PROFESSIONAL("Professional drone"),
-    CONSUMER("Consumer drone");
+    RACING("Racing"),
+    SELFIE("Selfie"),
+    PROFESSIONAL("Professional");
 
     private final String value;
 

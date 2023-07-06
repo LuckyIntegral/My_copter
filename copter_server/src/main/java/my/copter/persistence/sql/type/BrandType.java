@@ -4,7 +4,8 @@ public enum BrandType {
     DJI("DJI"),
     PARROT("Parrot"),
     WALKERA("Walkera"),
-    GOPRO("GoPro");
+    AUTEL("Autel"),
+    OTHER("Other");
 
     private final String name;
 
