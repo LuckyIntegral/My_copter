@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 import my.copter.data.dto.product.CopterIdImageIdDto;
 import my.copter.data.response.DataContainer;
-import my.copter.facade.crud.CopterCrudFacade;
+import my.copter.facade.crud.ProcessCrudFacade;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/my/drone/manager/process")
 public class CopterProcessController {
 
-    private final CopterCrudFacade copterCrudFacade;
+    private final ProcessCrudFacade processCrudFacade;
 
-    @PostMapping("/attach")
-    @PreAuthorize("hasAnyAuthority('admin:create', 'manager:create')")
+    @PutMapping("/attach")
+    @PreAuthorize("hasAnyAuthority('admin:update', 'manager:update')")
     public ResponseEntity<DataContainer<Boolean>> addImageToCopter(@RequestBody CopterIdImageIdDto dto) {
-        copterCrudFacade.attachImage(dto);
+        processCrudFacade.attachImage(dto);
         return ResponseEntity.ok(new DataContainer<>(Boolean.TRUE));
     }
 
-    @DeleteMapping("/detach")
-    @PreAuthorize("hasAnyAuthority('admin:delete', 'manager:delete')")
+    @PutMapping("/detach")
+    @PreAuthorize("hasAnyAuthority('admin:update', 'manager:update')")
     public ResponseEntity<DataContainer<Boolean>> deleteImageFromCopter(@RequestBody CopterIdImageIdDto dto) {
-        copterCrudFacade.detachImage(dto);
+        processCrudFacade.detachImage(dto);
         return ResponseEntity.ok(new DataContainer<>(Boolean.TRUE));
     }
 }

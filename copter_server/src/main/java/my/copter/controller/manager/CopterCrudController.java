@@ -2,6 +2,8 @@ package my.copter.controller.manager;
 
 import lombok.AllArgsConstructor;
 
+import my.copter.data.datatable.DataTableRequest;
+import my.copter.data.datatable.DataTableResponse;
 import my.copter.data.dto.product.CopterDto;
 import my.copter.data.response.DataContainer;
 import my.copter.facade.crud.CopterCrudFacade;
@@ -10,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
 
 @RestController
 @AllArgsConstructor
@@ -50,7 +50,15 @@ public class CopterCrudController {
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin:read', 'manager:read')")
-    public ResponseEntity<DataContainer<Collection<CopterDto>>> findAllCopters() {
-        return ResponseEntity.ok(new DataContainer<>(copterCrudFacade.findAll()));
+    public ResponseEntity<DataContainer<DataTableResponse<CopterDto>>> findAllCopters(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "8") int size,
+            @RequestParam(defaultValue = "id") String order
+    ) {
+        DataTableRequest request = new DataTableRequest();
+        request.setPage(page);
+        request.setSize(size);
+        request.setOrder(order);
+        return ResponseEntity.ok(new DataContainer<>(copterCrudFacade.findAll(request)));
     }
 }

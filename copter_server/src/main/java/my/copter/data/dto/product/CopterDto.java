@@ -1,12 +1,14 @@
 package my.copter.data.dto.product;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import my.copter.persistence.sql.entity.product.Copter;
 
 @Getter
 @Setter
-public class CopterDto {
+@NoArgsConstructor
+public class CopterDto extends BaseDto {
     private String brand;
     private String name;
     private String description;
@@ -16,8 +18,10 @@ public class CopterDto {
     private Long price;
     private String battery;
     private String flyTime;
+    private Integer quantity;
 
     public CopterDto(Copter copter) {
+        this.setId(copter.getId());
         this.brand = copter.getBrand().toString();
         this.name = copter.getName();
         this.description = copter.getDescription();
@@ -27,5 +31,6 @@ public class CopterDto {
         this.price = copter.getPrice();
         this.battery = copter.getBattery();
         this.flyTime = copter.getFlyTime();
+        this.quantity = copter.getQuantity();
     }
 }

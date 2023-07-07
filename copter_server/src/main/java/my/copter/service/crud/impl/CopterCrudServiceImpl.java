@@ -2,6 +2,7 @@ package my.copter.service.crud.impl;
 
 import lombok.AllArgsConstructor;
 
+import my.copter.data.datatable.DataTableRequest;
 import my.copter.exception.EmptyFieldException;
 import my.copter.exception.EntityNotFoundException;
 import my.copter.persistence.sql.entity.BaseEntity;
@@ -13,16 +14,17 @@ import my.copter.persistence.sql.repository.product.CopterRepository;
 import my.copter.persistence.sql.type.BrandType;
 import my.copter.persistence.sql.type.CategoryType;
 import my.copter.service.crud.CopterCrudService;
+
 import my.copter.util.ExceptionUtil;
+import my.copter.util.PersistenceUtil;
 
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collection;
 
 @Service
 @AllArgsConstructor
@@ -89,15 +91,15 @@ public class CopterCrudServiceImpl implements CopterCrudService {
 
     @Override
     @Transactional
-    public Collection<Copter> findAll() {
-        return copterRepository.findAll();
+    public Page<Copter> findAll(DataTableRequest request) {
+        return copterRepository.findAll(PersistenceUtil.generatePageableByDataTableRequest(request));
     }
 
     private void validateFields(Copter entity) {
         if (ObjectUtils.isEmpty(entity)) {
             throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
-        if (!EnumUtils.isValidEnum(BrandType.class, entity.getBrand().getName())) {
+        if (!EnumUtils.isValidEnum(BrandType.class, entity.getBrand().toString())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (StringUtils.isEmpty(entity.getName())) {
@@ -109,7 +111,7 @@ public class CopterCrudServiceImpl implements CopterCrudService {
         if (StringUtils.isEmpty(entity.getCameraResolution())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
-        if (!EnumUtils.isValidEnum(CategoryType.class, entity.getCategoryType().getValue())) {
+        if (!EnumUtils.isValidEnum(CategoryType.class, entity.getCategoryType().toString())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (StringUtils.isEmpty(entity.getBattery())) {
@@ -119,6 +121,9 @@ public class CopterCrudServiceImpl implements CopterCrudService {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (ObjectUtils.isEmpty(entity.getPrice())) {
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
+        }
+        if (ObjectUtils.isEmpty(entity.getQuantity())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
     }

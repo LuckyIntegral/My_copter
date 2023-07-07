@@ -2,20 +2,21 @@ package my.copter.service.crud.impl;
 
 import lombok.AllArgsConstructor;
 
+import my.copter.data.datatable.DataTableRequest;
 import my.copter.exception.EmptyFieldException;
 import my.copter.exception.EntityNotFoundException;
 import my.copter.persistence.sql.entity.product.CopterImage;
 import my.copter.persistence.sql.repository.product.CopterImageRepository;
 import my.copter.service.crud.CopterImageCrudService;
 import my.copter.util.ExceptionUtil;
+import my.copter.util.PersistenceUtil;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collection;
 
 @Service
 @AllArgsConstructor
@@ -55,8 +56,8 @@ public class CopterImageCrudServiceImpl implements CopterImageCrudService {
 
     @Override
     @Transactional
-    public Collection<CopterImage> findAll() {
-        return copterImageRepository.findAll();
+    public Page<CopterImage> findAll(DataTableRequest request) {
+        return copterImageRepository.findAll(PersistenceUtil.generatePageableByDataTableRequest(request));
     }
 
     private void validateFields(CopterImage image) {
