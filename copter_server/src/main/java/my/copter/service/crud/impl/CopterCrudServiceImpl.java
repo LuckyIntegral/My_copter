@@ -14,7 +14,6 @@ import my.copter.persistence.sql.repository.product.CopterRepository;
 import my.copter.persistence.sql.type.BrandType;
 import my.copter.persistence.sql.type.CategoryType;
 import my.copter.service.crud.CopterCrudService;
-
 import my.copter.util.ExceptionUtil;
 import my.copter.util.PersistenceUtil;
 
@@ -93,6 +92,22 @@ public class CopterCrudServiceImpl implements CopterCrudService {
     @Transactional
     public Page<Copter> findAll(DataTableRequest request) {
         return copterRepository.findAll(PersistenceUtil.generatePageableByDataTableRequest(request));
+    }
+
+    @Override
+    public Page<Copter> findAllByBrand(String brand, DataTableRequest request) {
+        return copterRepository.findAllByBrand(
+                BrandType.valueOf(brand),
+                PersistenceUtil.generatePageableByDataTableRequest(request)
+        );
+    }
+
+    @Override
+    public Page<Copter> findAllByCategory(String category, DataTableRequest request) {
+        return copterRepository.findAllByCategoryType(
+                CategoryType.valueOf(category),
+                PersistenceUtil.generatePageableByDataTableRequest(request)
+        );
     }
 
     private void validateFields(Copter entity) {
