@@ -2,11 +2,14 @@ package my.copter.controller.open;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import lombok.RequiredArgsConstructor;
+
 import my.copter.config.security.dto.AuthenticationRequest;
 import my.copter.config.security.dto.AuthenticationResponse;
 import my.copter.config.security.dto.RegisterRequest;
 import my.copter.config.security.service.AuthenticationService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
