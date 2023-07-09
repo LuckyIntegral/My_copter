@@ -22,29 +22,34 @@ public class ImageCrudController {
     private final CopterImageCrudFacade imageCrudFacade;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('admin:create', 'manager:create')")
     public ResponseEntity<DataContainer<Boolean>> createImage(@RequestBody ImageDto dto) {
         imageCrudFacade.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new DataContainer<>(Boolean.TRUE));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('admin:update', 'manager:update')")
     public ResponseEntity<DataContainer<Boolean>> updateImage(@PathVariable Long id, @RequestBody ImageDto dto) {
         imageCrudFacade.update(id, dto);
         return ResponseEntity.ok(new DataContainer<>(Boolean.TRUE));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('admin:delete', 'manager:delete')")
     public ResponseEntity<DataContainer<Boolean>> deleteImage(@PathVariable Long id) {
         imageCrudFacade.delete(id);
         return ResponseEntity.ok(new DataContainer<>(Boolean.TRUE));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('admin:read', 'manager:read')")
     public ResponseEntity<DataContainer<ImageDto>> findImageById(@PathVariable Long id) {
         return ResponseEntity.ok(new DataContainer<>(imageCrudFacade.findById(id)));
     }
 
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('admin:read', 'manager:read')")
     public ResponseEntity<DataContainer<DataTableResponse<ImageDto>>> findAllImages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "8") int size,

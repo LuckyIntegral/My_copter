@@ -1,10 +1,10 @@
-package my.copter.service.index.impl;
+package my.copter.service.search.impl;
 
 import lombok.AllArgsConstructor;
 
 import my.copter.persistence.elasticsearch.document.DroneIndex;
 import my.copter.persistence.elasticsearch.repository.DroneIndexRepository;
-import my.copter.service.index.DroneInfoSearchService;
+import my.copter.service.search.DroneInfoSearchService;
 
 import org.springframework.stereotype.Service;
 

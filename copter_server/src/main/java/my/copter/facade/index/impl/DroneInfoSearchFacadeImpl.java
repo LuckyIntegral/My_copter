@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 import my.copter.facade.index.DroneInfoSearchFacade;
 import my.copter.persistence.elasticsearch.document.DroneIndex;
-import my.copter.service.index.DroneInfoSearchService;
+import my.copter.service.search.DroneInfoSearchService;
 
 import org.springframework.stereotype.Service;
 

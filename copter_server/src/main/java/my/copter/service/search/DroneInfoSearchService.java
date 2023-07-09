@@ -1,4 +1,4 @@
-package my.copter.service.index;
+package my.copter.service.search;
 
 import my.copter.persistence.elasticsearch.document.DroneIndex;
 

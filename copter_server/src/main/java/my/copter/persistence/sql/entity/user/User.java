@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import my.copter.persistence.sql.entity.BaseEntity;
 import my.copter.persistence.sql.entity.token.Token;
+import my.copter.persistence.sql.listener.FullNameGeneratorListener;
 import my.copter.persistence.sql.type.RoleType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,9 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @AllArgsConstructor
+@EntityListeners({
+        FullNameGeneratorListener.class
+})
 public class User extends BaseEntity implements UserDetails {
 
     @Column(nullable = false, unique = true)
@@ -35,6 +39,9 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     private Boolean enabled;
+
+    @Transient
+    private String fullName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role_type", nullable = false)
