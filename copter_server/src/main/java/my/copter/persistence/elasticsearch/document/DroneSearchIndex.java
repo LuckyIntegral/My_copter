@@ -18,9 +18,6 @@ public class DroneSearchIndex {
     @Id
     private String id;
 
-    @Field(type = FieldType.Text)
-    private String username;
-
     @Field(type = FieldType.Long)
     private Long droneId;
 

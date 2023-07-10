@@ -3,6 +3,7 @@ package my.copter.controller.manager;
 import lombok.AllArgsConstructor;
 
 import my.copter.data.dto.statistic.EventActivityDto;
+import my.copter.data.dto.statistic.EventHistoryDto;
 import my.copter.data.response.DataContainer;
 import my.copter.facade.statistic.DroneStatisticFacade;
 
@@ -24,14 +25,8 @@ public class DroneStatisticController {
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin:read', 'manager:read')")
-    public ResponseEntity<DataContainer<List<EventActivityDto>>> findAllStatistic() {
+    public ResponseEntity<DataContainer<List<EventHistoryDto>>> findAllStatistic() {
         return ResponseEntity.ok(new DataContainer<>(droneStatisticFacade.findAllStatistic()));
-    }
-
-    @GetMapping("/users")
-    @PreAuthorize("hasAnyAuthority('admin:read', 'manager:read')")
-    public ResponseEntity<DataContainer<List<EventActivityDto>>> findAllUserStatistic() {
-        return ResponseEntity.ok(new DataContainer<>(droneStatisticFacade.findAllUserStatistic()));
     }
 
     @GetMapping("/products")
