@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 import my.copter.data.response.DataContainer;
 import my.copter.facade.index.DroneInfoSearchFacade;
-import my.copter.persistence.elasticsearch.document.DroneIndex;
+import my.copter.persistence.elasticsearch.document.DroneInfoIndex;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class DroneInfoSearchController {
     private final DroneInfoSearchFacade droneInfoSearchFacade;
 
     @GetMapping
-    public ResponseEntity<DataContainer<Collection<DroneIndex>>> findAllByQuery(@RequestParam String query) {
+    public ResponseEntity<DataContainer<Collection<DroneInfoIndex>>> findAllByQuery(@RequestParam String query) {
         return ResponseEntity.ok(new DataContainer<>(droneInfoSearchFacade.findAllByQuery(query)));
     }
 }

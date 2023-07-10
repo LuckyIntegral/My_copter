@@ -2,7 +2,7 @@ package my.copter.service.aop.process.impl;
 
 import lombok.AllArgsConstructor;
 
-import my.copter.persistence.elasticsearch.document.DroneSearchIndex;
+import my.copter.persistence.elasticsearch.document.DroneStatisticIndex;
 import my.copter.service.aop.process.DroneInfoSearchProcessService;
 import my.copter.service.statistic.DronePDPSearchService;
 
@@ -18,7 +18,7 @@ public class DroneInfoSearchProcessServiceImpl implements DroneInfoSearchProcess
 
     @Override
     public void saveRequestToDronePdp(Long id) {
-        DroneSearchIndex index = new DroneSearchIndex();
+        DroneStatisticIndex index = new DroneStatisticIndex();
         index.setDroneId(id);
         index.setCreated(new Date());
         service.create(index);

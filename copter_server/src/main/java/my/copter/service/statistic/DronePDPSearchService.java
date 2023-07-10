@@ -1,10 +1,10 @@
 package my.copter.service.statistic;
 
-import my.copter.persistence.elasticsearch.document.DroneSearchIndex;
+import my.copter.persistence.elasticsearch.document.DroneStatisticIndex;
 
 import java.util.List;
 
 public interface DronePDPSearchService {
-    void create(DroneSearchIndex index);
-    List<DroneSearchIndex> findAll();
+    void create(DroneStatisticIndex index);
+    List<DroneStatisticIndex> findAll();
 }

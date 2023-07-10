@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import my.copter.data.dto.statistic.EventActivityDto;
 import my.copter.data.dto.statistic.EventHistoryDto;
 import my.copter.facade.statistic.DroneStatisticFacade;
-import my.copter.persistence.elasticsearch.document.DroneSearchIndex;
+import my.copter.persistence.elasticsearch.document.DroneStatisticIndex;
 import my.copter.service.crud.CopterCrudService;
 import my.copter.service.statistic.DronePDPSearchService;
 
@@ -38,7 +38,7 @@ public class DroneStatisticFacadeImpl implements DroneStatisticFacade {
     public List<EventActivityDto> findAllPdpStatistic() {
         return service.findAll()
                 .stream()
-                .collect(Collectors.groupingBy(DroneSearchIndex::getDroneId, Collectors.counting()))
+                .collect(Collectors.groupingBy(DroneStatisticIndex::getDroneId, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .map(e -> {

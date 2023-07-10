@@ -1,9 +1,9 @@
 package my.copter.service.search;
 
-import my.copter.persistence.elasticsearch.document.DroneIndex;
+import my.copter.persistence.elasticsearch.document.DroneInfoIndex;
 
 import java.util.List;
 
 public interface DroneInfoSearchService {
-    List<DroneIndex> findAllByQuery(String query);
+    List<DroneInfoIndex> findAllByQuery(String query);
 }

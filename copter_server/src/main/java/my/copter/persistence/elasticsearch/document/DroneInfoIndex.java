@@ -8,19 +8,17 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.util.Date;
-
 @Getter
 @Setter
-@Document(indexName = "drone_search_index")
-public class DroneSearchIndex {
+@Document(indexName = "drone_index")
+public class DroneInfoIndex {
 
     @Id
     private String id;
 
-    @Field(type = FieldType.Long)
-    private Long droneId;
+    @Field(name = "droneInfo", type = FieldType.Text)
+    private String droneInfo;
 
-    @Field(type = FieldType.Date)
-    private Date created;
+    @Field(name = "droneId", type = FieldType.Long)
+    private Long droneId;
 }

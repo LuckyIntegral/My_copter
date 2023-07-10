@@ -3,8 +3,8 @@ package my.copter.cron;
 import lombok.AllArgsConstructor;
 
 import my.copter.data.dto.product.CopterMinDto;
-import my.copter.persistence.elasticsearch.document.DroneIndex;
-import my.copter.persistence.elasticsearch.repository.DroneIndexRepository;
+import my.copter.persistence.elasticsearch.document.DroneInfoIndex;
+import my.copter.persistence.elasticsearch.repository.DroneInfoIndexRepository;
 import my.copter.persistence.sql.repository.product.CopterRepository;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -19,25 +19,25 @@ import java.util.Collection;
 @AllArgsConstructor
 public class DroneIndexCronService {
 
-    private final DroneIndexRepository droneIndexRepository;
+    private final DroneInfoIndexRepository droneIndexRepository;
     private final CopterRepository copterRepository;
     private final ElasticsearchOperations elasticsearchOperations;
 
     @Scheduled(cron = "*/10 * * * * *")
     public void syncToElastic() {
-        elasticsearchOperations.indexOps(DroneIndex.class).refresh();
+        elasticsearchOperations.indexOps(DroneInfoIndex.class).refresh();
         droneIndexRepository.deleteAll();
         droneIndexRepository.saveAll(generate());
     }
 
-    private Collection<DroneIndex> generate() {
-        Collection<DroneIndex> indices = new ArrayList<>();
+    private Collection<DroneInfoIndex> generate() {
+        Collection<DroneInfoIndex> indices = new ArrayList<>();
         Collection<CopterMinDto> collection = copterRepository.findMinDto();
         if (CollectionUtils.isNotEmpty(collection)) {
             indices = collection
                     .stream()
                     .map(drone -> {
-                        DroneIndex droneIndex = new DroneIndex();
+                        DroneInfoIndex droneIndex = new DroneInfoIndex();
                         String builder = drone.getBrand() +
                                 ", " +
                                 drone.getName() +

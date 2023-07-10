@@ -2,8 +2,8 @@ package my.copter.service.statistic.impl;
 
 import lombok.AllArgsConstructor;
 
-import my.copter.persistence.elasticsearch.document.DroneSearchIndex;
-import my.copter.persistence.elasticsearch.repository.DroneSearchIndexRepository;
+import my.copter.persistence.elasticsearch.document.DroneStatisticIndex;
+import my.copter.persistence.elasticsearch.repository.DroneStatisticIndexRepository;
 import my.copter.service.statistic.DronePDPSearchService;
 
 import org.springframework.stereotype.Component;
@@ -16,18 +16,18 @@ import java.util.stream.StreamSupport;
 @AllArgsConstructor
 public class DronePDPSearchServiceImpl implements DronePDPSearchService {
 
-    private final DroneSearchIndexRepository repository;
+    private final DroneStatisticIndexRepository repository;
 
     @Override
-    public void create(DroneSearchIndex index) {
+    public void create(DroneStatisticIndex index) {
         repository.save(index);
     }
 
     @Override
-    public List<DroneSearchIndex> findAll() {
+    public List<DroneStatisticIndex> findAll() {
         return StreamSupport
                 .stream(repository.findAll().spliterator(), false)
-                .sorted(Comparator.comparing(DroneSearchIndex::getCreated))
+                .sorted(Comparator.comparing(DroneStatisticIndex::getCreated))
                 .toList();
     }
 }
