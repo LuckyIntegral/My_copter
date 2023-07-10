@@ -1,0 +1,90 @@
+package my.copter.service.order.impl;
+
+import lombok.AllArgsConstructor;
+
+import my.copter.config.security.service.AuthenticationService;
+import my.copter.exception.BadRequestException;
+import my.copter.exception.EntityNotFoundException;
+import my.copter.persistence.sql.entity.product.Copter;
+import my.copter.persistence.sql.entity.user.Customer;
+import my.copter.persistence.sql.repository.order.CartEntryRepository;
+import my.copter.persistence.sql.repository.order.CartRepository;
+import my.copter.persistence.sql.entity.order.CartEntry;
+import my.copter.persistence.sql.entity.order.Cart;
+import my.copter.service.crud.CopterCrudService;
+import my.copter.service.order.CartService;
+
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+import static my.copter.util.ExceptionUtil.BAD_REQUEST_EXCEPTION;
+import static my.copter.util.ExceptionUtil.USER_NOT_FOUND;
+
+@Service
+@AllArgsConstructor
+public class CartServiceImpl implements CartService {
+
+    private final CartRepository cartRepository;
+    private final CartEntryRepository entryRepository;
+    private final AuthenticationService authenticationService;
+    private final CopterCrudService copterCrudService;
+
+    @Override
+    @Transactional
+    public void addProduct(CartEntry cartEntry) {
+        Cart cart = getCart();
+
+        Copter copter = cartEntry.getCopter();
+        int quantity = copter.getQuantity();
+        if (cartEntry.getQuantity() > quantity) throw new BadRequestException(BAD_REQUEST_EXCEPTION);
+        copter.setQuantity(quantity - cartEntry.getQuantity());
+        copterCrudService.update(copter);
+
+        cartEntry.setCart(cart);
+        cartRepository.save(cart);
+    }
+
+    @Override
+    @Transactional
+    public void removeProduct(CartEntry cartEntry) {
+        Cart cart = getCart();
+
+        Copter copter = cartEntry.getCopter();
+        copter.setQuantity(copter.getQuantity() + cartEntry.getQuantity());
+        copterCrudService.update(copter);
+
+        cartEntry.setCart(cart);
+        cartRepository.save(cart);
+    }
+
+    private Cart getCart() {
+        Customer customer = authenticationService.findCustomer();
+        Optional<Cart> optionalCart = cartRepository.findByOwnerAndActiveTrue(customer);
+        Cart cart;
+        if (optionalCart.isEmpty()) {
+            cart = new Cart();
+            cart.setOwner(customer);
+            cart = cartRepository.save(cart);
+        } else {
+            cart = optionalCart.get();
+        }
+        return cart;
+    }
+
+    @Override
+    @Transactional
+    public Cart getActive() {
+        Customer owner = authenticationService.findCustomer();
+        return cartRepository.findByOwnerAndActiveTrue(owner)
+                .orElseThrow(() -> new EntityNotFoundException(USER_NOT_FOUND));
+    }
+
+    @Override
+    @Transactional
+    public List<CartEntry> findAllByCart(Cart cart) {
+        return entryRepository.findAllByCart(cart);
+    }
+}
