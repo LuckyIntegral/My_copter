@@ -43,8 +43,15 @@ public class CartServiceImpl implements CartService {
         copter.setQuantity(quantity - cartEntry.getQuantity());
         copterCrudService.update(copter);
 
-        cartEntry.setCart(cart);
-        cartRepository.save(cart);
+        Optional<CartEntry> optionalCartEntry = entryRepository.findCartEntryByCartAndCopter(cart, copter);
+        if (optionalCartEntry.isEmpty()) {
+            cartEntry.setCart(cart);
+            entryRepository.save(cartEntry);
+        } else {
+            CartEntry oldEntry = optionalCartEntry.get();
+            oldEntry.setQuantity(oldEntry.getQuantity() + cartEntry.getQuantity());
+            entryRepository.save(oldEntry);
+        }
     }
 
     @Override
@@ -56,8 +63,15 @@ public class CartServiceImpl implements CartService {
         copter.setQuantity(copter.getQuantity() + cartEntry.getQuantity());
         copterCrudService.update(copter);
 
-        cartEntry.setCart(cart);
-        cartRepository.save(cart);
+        Optional<CartEntry> optionalCartEntry = entryRepository.findCartEntryByCartAndCopter(cart, copter);
+        if (optionalCartEntry.isEmpty()) {
+            cartEntry.setCart(cart);
+            entryRepository.save(cartEntry);
+        } else {
+            CartEntry oldEntry = optionalCartEntry.get();
+            oldEntry.setQuantity(oldEntry.getQuantity() - cartEntry.getQuantity());
+            entryRepository.save(oldEntry);
+        }
     }
 
     private Cart getCart() {
