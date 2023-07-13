@@ -1,0 +1,14 @@
+<form role="search" [formGroup]="queryForm">
+    <div class="d-flex dropdown">
+        <input class="form-control me-2 mr-1 dropdown-toggle" type="search" placeholder="Search" aria-label="Search"
+               data-bs-toggle="dropdown" formControlName="query">
+        <ul class="dropdown-menu">
+            <ng-container *ngFor="let product of (products$ | async)">
+                <li>
+                    <a class="dropdown-item" role="button" (click)="navigateToPdp(product.droneId)">{{ product.droneInfo }}</a>
+                </li>
+            </ng-container>
+        </ul>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </div>
+</form>

@@ -1,0 +1,89 @@
+<ng-container *ngIf="(pdpDrone$ | async) as drone">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Product view
+            </th>
+            <td>
+                <div class="d-flex">
+                    <!--        <div class="d-flex flex-wrap">-->
+                    <div class="p-1" *ngFor="let image of drone.images">
+                        <img src="{{ image }}" class="card-img-top" alt="..." style="width: 230px; height: 230px">
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Brand
+            </th>
+            <td>
+                {{ drone.brand }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Name
+            </th>
+            <td>
+                {{ drone.name }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Category
+            </th>
+            <td>
+                {{ drone.category }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Camera
+            </th>
+            <td>
+                {{ drone.cameraResolution }}
+            </td>
+        </tr>
+        <tr *ngIf="drone.fpv">
+            <th>
+                Fpv camera
+            </th>
+            <td>
+                Available
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Battery
+            </th>
+            <td>
+                {{ drone.battery }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Fly time
+            </th>
+            <td>
+                {{ drone.flyTime }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Description
+            </th>
+            <td>
+                {{ drone.description }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Price
+            </th>
+            <td>
+                {{ AppPriceUtil.formatNumber(drone.price) }}
+            </td>
+        </tr>
+    </table>
+</ng-container>
