@@ -25,7 +25,7 @@ public class CopterPlpDto extends BaseDto {
             this.image = copter.getCopterImages()
                     .stream()
                     .filter(CopterImage::getMainImage)
-                    .map(Object::toString)
+                    .map(CopterImage::getImageUrl)
                     .findFirst()
                     .orElse("none");
         } else {

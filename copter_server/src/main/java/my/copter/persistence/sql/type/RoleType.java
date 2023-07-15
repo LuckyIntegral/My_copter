@@ -16,12 +16,14 @@ public enum RoleType {
     CUSTOMER(
             Set.of(
                     CUSTOMER_CREATE,
-                    CUSTOMER_READ
+                    CUSTOMER_READ,
+                    CUSTOMER_DELETE
             )),
     MANAGER(
             Set.of(
                     CUSTOMER_CREATE,
                     CUSTOMER_READ,
+                    CUSTOMER_DELETE,
                     MANAGER_CREATE,
                     MANAGER_READ,
                     MANAGER_UPDATE,
@@ -31,6 +33,7 @@ public enum RoleType {
             Set.of(
                     CUSTOMER_CREATE,
                     CUSTOMER_READ,
+                    CUSTOMER_DELETE,
                     ADMIN_CREATE,
                     ADMIN_READ,
                     ADMIN_UPDATE,

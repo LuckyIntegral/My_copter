@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 
 import my.copter.config.security.service.AuthenticationService;
 import my.copter.exception.BadRequestException;
-import my.copter.exception.EntityNotFoundException;
 import my.copter.persistence.sql.entity.product.Copter;
 import my.copter.persistence.sql.entity.user.Customer;
 import my.copter.persistence.sql.repository.order.CartEntryRepository;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static my.copter.util.ExceptionUtil.BAD_REQUEST_EXCEPTION;
-import static my.copter.util.ExceptionUtil.USER_NOT_FOUND;
 
 @Service
 @AllArgsConstructor
@@ -61,7 +59,6 @@ public class CartServiceImpl implements CartService {
 
         Copter copter = cartEntry.getCopter();
         copter.setQuantity(copter.getQuantity() + cartEntry.getQuantity());
-        copterCrudService.update(copter);
 
         Optional<CartEntry> optionalCartEntry = entryRepository.findCartEntryByCartAndCopter(cart, copter);
         if (optionalCartEntry.isEmpty()) {
@@ -69,9 +66,16 @@ public class CartServiceImpl implements CartService {
             entryRepository.save(cartEntry);
         } else {
             CartEntry oldEntry = optionalCartEntry.get();
-            oldEntry.setQuantity(oldEntry.getQuantity() - cartEntry.getQuantity());
-            entryRepository.save(oldEntry);
+            if (oldEntry.getQuantity() - cartEntry.getQuantity() < 0)
+                throw new BadRequestException(BAD_REQUEST_EXCEPTION);
+            else if (oldEntry.getQuantity() - cartEntry.getQuantity() == 0) {
+                entryRepository.delete(oldEntry);
+            } else {
+                oldEntry.setQuantity(oldEntry.getQuantity() - cartEntry.getQuantity());
+                entryRepository.save(oldEntry);
+            }
         }
+        copterCrudService.update(copter);
     }
 
     private Cart getCart() {
@@ -91,9 +95,7 @@ public class CartServiceImpl implements CartService {
     @Override
     @Transactional
     public Cart getActive() {
-        Customer owner = authenticationService.findCustomer();
-        return cartRepository.findByOwnerAndActiveTrue(owner)
-                .orElseThrow(() -> new EntityNotFoundException(USER_NOT_FOUND));
+        return getCart();
     }
 
     @Override

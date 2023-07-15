@@ -27,7 +27,7 @@ public class CopterServerApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void run() {
-        String adminName = "admin";
+        String adminName = "admin@1234";
         if (!adminRepository.existsByUsername(adminName)) {
             var admin = RegisterRequest.builder()
                     .username(adminName)

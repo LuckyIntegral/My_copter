@@ -14,7 +14,8 @@ public enum PermissionType {
     MANAGER_UPDATE("manager:update"),
     MANAGER_DELETE("manager:delete"),
     CUSTOMER_READ("personal:read"),
-    CUSTOMER_CREATE("personal:create");
+    CUSTOMER_CREATE("personal:create"),
+    CUSTOMER_DELETE("personal:delete");
 
     @Getter
     private final String permission;
