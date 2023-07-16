@@ -1,5 +1,5 @@
-import {Routes} from "@angular/router";
-import {PdpComponent} from "./pdp.component";
+import { Routes } from "@angular/router";
+import { PdpComponent } from "./pdp.component";
 
 export const PDP_ROUTES: Routes = [
 	{

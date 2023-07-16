@@ -1,15 +1,38 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AppSearchComponent} from "../../components/app-search/app-search.component";
+import {Observable} from "rxjs";
+import {AuthService} from "../../services/auth.service";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {SessionService} from "../../services/session.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  templateUrl: './header.component.html',
-  imports: [
-    AppSearchComponent
-  ],
-  styleUrls: ['./header.component.scss']
+	selector: 'app-header',
+	standalone: true,
+	templateUrl: './header.component.html',
+	imports: [
+		AppSearchComponent,
+		AsyncPipe,
+		NgIf
+	],
+	styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+	isLoggedIn$: Observable<boolean> = this._authService.isLoggedIn();
+	hasRole$: Observable<string> = this._authService.getRole();
 
+	constructor(
+		private _authService: AuthService,
+		private _sessionService: SessionService,
+		private _router: Router) {
+	}
+
+	redirectToCrud(): void {
+		this._router.navigateByUrl('/crud');
+	}
+
+	logout(): void {
+		this._sessionService.removeFromStorage("token");
+		this._router.navigateByUrl('/login');
+	}
 }

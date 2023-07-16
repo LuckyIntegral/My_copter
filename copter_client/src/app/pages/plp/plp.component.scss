@@ -1,0 +1,13 @@
+.product-info {
+  margin: 0.5em;
+  height: 490px;
+}
+
+.product-info:hover {
+  cursor: pointer;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}

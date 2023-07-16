@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-center">
+  <div class="p-0">
+    <h2 class="text-center fw-semibold">Registration</h2>
+    <form [formGroup]="form">
+      <div class="mb-3">
+        <label class="form-label">Firstname</label>
+        <input type="text" class="form-control" formControlName="firstname">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Lastname</label>
+        <input type="text" class="form-control" formControlName="lastname">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="email" class="form-control" formControlName="username">
+        <div class="form-text">We'll never share your email with anyone else.</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" formControlName="password">
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!(isSubmit | async)" (click)="register()">Submit</button>
+    </form>
+  </div>
+</div>

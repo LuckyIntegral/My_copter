@@ -6,7 +6,6 @@
             </th>
             <td>
                 <div class="d-flex">
-                    <!--        <div class="d-flex flex-wrap">-->
                     <div class="p-1" *ngFor="let image of drone.images">
                         <img src="{{ image }}" class="card-img-top" alt="..." style="width: 230px; height: 230px">
                     </div>
@@ -86,4 +85,7 @@
             </td>
         </tr>
     </table>
+    <div class="d-flex flex-column mt-4">
+        <button type="button" class="btn btn-primary" (click)="addToCart()">Buy</button>
+    </div>
 </ng-container>

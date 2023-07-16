@@ -7,13 +7,11 @@ export const PLP_ROUTES: Routes = [
     component: PlpComponent,
   },
   {
-    path: 'category',
-    pathMatch: "prefix",
-    loadChildren: () => import('./category/category.routes').then(m => m.CATEGORY_ROUTES)
+    path: 'category/:param',
+    component: PlpComponent,
   },
   {
-    path: 'brand',
-    pathMatch: "prefix",
-    loadChildren: () => import('./brand/brand.routes').then(m => m.BRAND_ROUTES)
+    path: 'brand/:param',
+    component: PlpComponent,
   }
 ]

@@ -1,17 +1,47 @@
-<ng-container *ngIf="plpList$ | async as plpList">
+<ng-container *ngIf="plpList$ | async as data">
     <div class="d-flex flex-wrap justify-content-center">
-        <div class="p-0" *ngFor="let drone of plpList.items">
-            <div class="card product-info" style="width: 18rem;" (click)="redirectToPdp(drone.id)">
+        <div class="p-0" *ngFor="let drone of data.items">
+            <div class="card product-info" style="width: 18rem; border-radius: 5px;" (click)="redirectToPdp(drone.id)">
                 <div class="product-image">
                     <img src="{{ drone.image }}" class="card-img-top" alt="..." style="width: 286px; height: 286px">
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="background: #efefef;">
                     <h5 class="card-title">{{ drone.brand }}</h5>
                     <p class="card-text">{{ drone.name }}</p>
                     <p class="card-text">{{ AppPriceUtil.formatNumber(drone.price) }}</p>
                     <a href="#" class="btn btn-primary">Buy</a>
                 </div>
             </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" role="button" [class.disabled]="data.first" (click)="showPage(0)">
+                        &laquo;
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" role="button" (click)="showPage(data.page - 1)" *ngIf="data.previous">
+                        {{data.page}}
+                    </a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link">
+                        {{data.page + 1}}
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" role="button" (click)="showPage(data.page + 1)" *ngIf="data.next">
+                        {{data.page + 2}}
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" role="button" [class.disabled]="data.last"
+                       (click)="showPage(data.totalPages - 1)">
+                        &raquo;
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </ng-container>

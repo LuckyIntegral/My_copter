@@ -1,13 +1,16 @@
-<nav class="navbar border-bottom border-bottom-dark navbar-expand-lg bg-dark" data-bs-theme="dark" style="border-radius: 10px;">
+<nav class="navbar border-bottom border-bottom-dark navbar-expand-lg bg-dark" data-bs-theme="dark"
+     style="border-radius: 10px;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">My Drones</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
                         Brands
                     </a>
                     <ul class="dropdown-menu">
@@ -19,7 +22,8 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
                         Categories
                     </a>
                     <ul class="dropdown-menu">
@@ -30,6 +34,55 @@
                 </li>
             </ul>
             <app-search class="m-1" style="width: 100%;"></app-search>
+            <ng-container class="d-flex user-action" *ngIf="{ isLoggedIn: isLoggedIn$ | async } as config">
+                <ul class="navbar-nav" *ngIf="config.isLoggedIn">
+                    <li class="nav-item dropdown" style="color: white">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <span class="material-symbols-outlined">account_box</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/cart">View my cart</a></li>
+                            <li><a class="dropdown-item" role="button" (click)="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" *ngIf="(hasRole$ | async) === 'ADMIN' || (hasRole$ | async) === 'MANAGER'">
+                    <li class="nav-item dropdown" style="color: white">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <span class="material-symbols-outlined">add_box</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" role="button" (click)="redirectToCrud()">Create new drone</a></li>
+                            <li><a class="dropdown-item" role="button">Check statistic</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" *ngIf="(hasRole$ | async) === 'ADMIN'">
+                    <li class="nav-item dropdown" style="color: white">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <span class="material-symbols-outlined">group</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" role="button">Create new manager</a></li>
+                            <li><a class="dropdown-item" role="button">Check all users</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" *ngIf="!config.isLoggedIn">
+                    <li class="nav-item dropdown" style="color: white">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <span class="material-symbols-outlined">check_box_outline_blank</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/login">Login</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </ng-container>
         </div>
     </div>
 </nav>
