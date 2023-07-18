@@ -2,6 +2,8 @@ package my.copter.facade.statistic.impl;
 
 import lombok.AllArgsConstructor;
 
+import my.copter.data.datatable.DataTableRequest;
+import my.copter.data.datatable.DataTableResponse;
 import my.copter.data.dto.statistic.EventActivityDto;
 import my.copter.data.dto.statistic.EventHistoryDto;
 import my.copter.facade.statistic.DroneStatisticFacade;
@@ -9,6 +11,7 @@ import my.copter.persistence.elasticsearch.document.DroneStatisticIndex;
 import my.copter.service.crud.CopterCrudService;
 import my.copter.service.statistic.DronePDPSearchService;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -22,16 +25,11 @@ public class DroneStatisticFacadeImpl implements DroneStatisticFacade {
     private final CopterCrudService crudService;
 
     @Override
-    public List<EventHistoryDto> findAllStatistic() {
-        return service.findAll()
-                .stream()
-                .map(e -> {
-                    EventHistoryDto dto = new EventHistoryDto();
-                    dto.setDate(e.getCreated());
-                    dto.setEventId(e.getDroneId());
-                    return dto;
-                })
-                .toList();
+    public DataTableResponse<EventHistoryDto> findAllStatistic(DataTableRequest request) {
+        Page<DroneStatisticIndex> page = service.findAll(request);
+        DataTableResponse<EventHistoryDto> response = new DataTableResponse<>(request, page);
+        response.setItems(page.get().map(EventHistoryDto::new).toList());
+        return response;
     }
 
     @Override

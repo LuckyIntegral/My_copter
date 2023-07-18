@@ -2,6 +2,8 @@ package my.copter.controller.manager;
 
 import lombok.AllArgsConstructor;
 
+import my.copter.data.datatable.DataTableRequest;
+import my.copter.data.datatable.DataTableResponse;
 import my.copter.data.dto.statistic.EventActivityDto;
 import my.copter.data.dto.statistic.EventHistoryDto;
 import my.copter.data.response.DataContainer;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,8 +28,16 @@ public class DroneStatisticController {
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin:read', 'manager:read')")
-    public ResponseEntity<DataContainer<List<EventHistoryDto>>> findAllStatistic() {
-        return ResponseEntity.ok(new DataContainer<>(droneStatisticFacade.findAllStatistic()));
+    public ResponseEntity<DataContainer<DataTableResponse<EventHistoryDto>>> findAllStatistic(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "8") int size,
+            @RequestParam(defaultValue = "created") String order
+    ) {
+        DataTableRequest request = new DataTableRequest();
+        request.setPage(page);
+        request.setSize(size);
+        request.setOrder(order);
+        return ResponseEntity.ok(new DataContainer<>(droneStatisticFacade.findAllStatistic(request)));
     }
 
     @GetMapping("/products")

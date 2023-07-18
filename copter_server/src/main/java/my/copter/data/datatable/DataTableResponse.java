@@ -3,9 +3,6 @@ package my.copter.data.datatable;
 import lombok.Getter;
 import lombok.Setter;
 
-import my.copter.data.dto.product.BaseDto;
-import my.copter.persistence.sql.entity.BaseEntity;
-
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
@@ -13,7 +10,7 @@ import java.util.Collection;
 
 @Getter
 @Setter
-public class DataTableResponse<DTO extends BaseDto> {
+public class DataTableResponse<DTO> {
 
     private int page;
     private int size;
@@ -26,7 +23,7 @@ public class DataTableResponse<DTO extends BaseDto> {
     private String order;
     private Collection<DTO> items;
 
-    public <E extends BaseEntity> DataTableResponse(DataTableRequest request, Page<E> page) {
+    public <E> DataTableResponse(DataTableRequest request, Page<E> page) {
         this.page = request.getPage();
         this.size = request.getSize();
         this.order = request.getOrder();
