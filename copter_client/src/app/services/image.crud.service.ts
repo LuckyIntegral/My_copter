@@ -50,7 +50,7 @@ export class ImageCrudService {
 			);
 	}
 
-	loadDroneById(id: number): Observable<ImageFullModel> {
+	loadImageById(id: number): Observable<ImageFullModel> {
 		return this._http.get(appSettings.apiManager + '/image/' + id)
 			.pipe(
 				map(
@@ -62,7 +62,7 @@ export class ImageCrudService {
 			);
 	}
 
-	loadAllDrones(page: number = 0, size: number = 5): Observable<DataTableResponse<ImageFullModel>> {
+	loadAllImages(page: number = 0, size: number = 5): Observable<DataTableResponse<ImageFullModel>> {
 		let params: HttpParams = new HttpParams()
 			.set('page', page)
 			.set('size', size)

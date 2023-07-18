@@ -9,7 +9,7 @@
                     <h5 class="card-title">{{ drone.brand }}</h5>
                     <p class="card-text">{{ drone.name }}</p>
                     <p class="card-text">{{ AppPriceUtil.formatNumber(drone.price) }}</p>
-                    <a href="#" class="btn btn-primary">Buy</a>
+                    <a (click)="redirectToPdp(drone.id)" class="btn btn-primary text-light">Buy</a>
                 </div>
             </div>
         </div>

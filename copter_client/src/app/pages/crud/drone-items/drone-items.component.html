@@ -1,1 +1,100 @@
-<p>drone-items works!</p>
+<div class="card">
+    <div class="card-body">
+        <ng-container *ngIf="drones$ | async as data">
+            <h5 class="card-title">All drones</h5>
+            <div class="row" *ngIf="(isDeleted | async)">
+                <div class="col-12">
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <span class="material-symbols-outlined">delete_sweep</span>
+                        Drone deleted!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Camera</th>
+                    <th scope="col">Fpv</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Battery</th>
+                    <th scope="col">Fly time</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Desc</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let drone of data.items">
+                <tr>
+                    <td>{{drone.id}}</td>
+                    <td>{{drone.brand}}</td>
+                    <td>{{drone.name}}</td>
+                    <td>{{drone.cameraResolution}}</td>
+                    <td class="text-center" *ngIf="drone.fpv">+</td>
+                    <td class="text-center" *ngIf="!drone.fpv">-</td>
+                    <td>{{drone.category}}</td>
+                    <td>{{drone.battery}}</td>
+                    <td>{{drone.flyTime}}</td>
+                    <td>{{formatNumber(drone.price) + '$'}}</td>
+                    <td class="text-center">{{drone.quantity}}</td>
+                    <td class="accordion accordion-collapse collapsed" role="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapseOne-' + drone.id"
+                        [attr.aria-controls]="'collapseOne-' + drone.id"
+                        [attr.aria-expanded]="false"
+                        (click)="toggleDescClicked(drone.id)">
+                        <span class="material-symbols-outlined" *ngIf="!isDescClicked[drone.id]">expand_more</span>
+                        <span class="material-symbols-outlined" *ngIf="isDescClicked[drone.id]">expand_less</span>
+                    </td>
+                    <td role="button" class="btn btn-danger justify-content-center d-flex align-items-center"
+                        (click)="deleteDrone(drone.id)">
+                        <span class="material-symbols-outlined">delete</span>
+                    </td>
+                    <td role="button" class="btn btn-primary justify-content-center d-flex align-items-center"
+                        (click)="redirectToUpdate(drone.id)">
+                        <span class="material-symbols-outlined">settings</span>
+                    </td>
+                </tr>
+                <tr role="alert" [attr.id]="'collapseOne-' + drone.id"
+                    class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <td colspan="11">
+                        <div class="accordion-body">{{drone.description}}</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-12 d-flex justify-content-center">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" role="button" [class.disabled]="data.first" (click)="showPage(0)">
+                            &laquo;
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" (click)="showPage(data.page - 1)" *ngIf="data.previous">
+                            {{data.page}}
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link">
+                            {{data.page + 1}}
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" (click)="showPage(data.page + 1)" *ngIf="data.next">
+                            {{data.page + 2}}
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" [class.disabled]="data.last"
+                           (click)="showPage(data.totalPages - 1)">
+                            &raquo;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ng-container>
+    </div>
+</div>

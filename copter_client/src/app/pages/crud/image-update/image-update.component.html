@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Create menu</h5>
+        <h5 class="card-title">Update menu</h5>
+        <p class="card-title">Image id: {{imageId}}</p>
         <hr class="bold-hr">
         <form [formGroup]="form">
             <div class="mb-3">
@@ -25,18 +26,18 @@
                 <img [src]="form.controls.imageUrl.value" class="card-img-top" *ngIf="(isValidSrc$ | async)" alt="...">
             </div>
 
-            <div class="row" *ngIf="(isCreated$ | async)">
+            <div class="row" *ngIf="(isUpdated$ | async)">
                 <div class="col-md-12">
                     <div class="alert alert-success alert-dismissible fade show">
                         <span class="material-symbols-outlined">check_circle</span>
-                        Image created!
+                        Image updated!
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" (click)="createImage()"
-                    [class.disabled]="!(isSubmit | async)">Submit
+            <button type="submit" class="btn btn-primary" (click)="updateImage()" [class.disabled]="!(isSubmit | async)">
+                Update
             </button>
         </form>
     </div>

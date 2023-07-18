@@ -1,1 +1,75 @@
-<p>image-items works!</p>
+<div class="card">
+    <div class="card-body">
+        <ng-container *ngIf="images$ | async as data">
+            <h5 class="card-title">All images</h5>
+            <div class="row" *ngIf="(isDeleted | async)">
+                <div class="col-12">
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <span class="material-symbols-outlined">delete_sweep</span>
+                        Image deleted!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Image url</th>
+                    <th scope="col">Main</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let image of data.items">
+                <tr>
+                    <td>{{image.id}}</td>
+                    <img src="{{image.imageUrl}}" class="img-thumbnail" style="width: 120px;" alt="...">
+                    <td class="image-url-cell">{{image.imageUrl}}</td>
+                    <td class="text-center">
+                        <span class="material-symbols-outlined" *ngIf="image.mainImage">check_circle</span>
+                        <span class="material-symbols-outlined" *ngIf="!image.mainImage">cancel</span>
+                    </td>
+                    <td role="button" class="btn btn-danger justify-content-center d-flex align-items-center"
+                        (click)="deleteImage(image.id)">
+                        <span class="material-symbols-outlined">delete</span>
+                    </td>
+                    <td role="button" class="btn btn-primary justify-content-center d-flex align-items-center"
+                        (click)="redirectToUpdate(image.id)">
+                        <span class="material-symbols-outlined">settings</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-12 d-flex justify-content-center">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" role="button" [class.disabled]="data.first" (click)="showPage(0)">
+                            &laquo;
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" (click)="showPage(data.page - 1)" *ngIf="data.previous">
+                            {{data.page}}
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link">
+                            {{data.page + 1}}
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" (click)="showPage(data.page + 1)" *ngIf="data.next">
+                            {{data.page + 2}}
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" [class.disabled]="data.last"
+                           (click)="showPage(data.totalPages - 1)">
+                            &raquo;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ng-container>
+    </div>
+</div>

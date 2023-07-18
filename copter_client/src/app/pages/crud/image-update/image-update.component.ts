@@ -1,22 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {map, Observable, of} from "rxjs";
 import {ImageCrudService} from "../../../services/image.crud.service";
 import {ImageCrudModel} from "../../../models/image-crud.model";
+import {Router} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
-	selector: 'app-image-crud',
+	selector: 'app-image-update',
 	standalone: true,
-	templateUrl: './image-crud.component.html',
+	templateUrl: './image-update.component.html',
 	imports: [
-		ReactiveFormsModule,
+		AsyncPipe,
+		FormsModule,
 		NgIf,
-		AsyncPipe
+		ReactiveFormsModule
 	],
-	styleUrls: ['./image-crud.component.scss']
+	styleUrls: ['./image-update.component.scss']
 })
-export class ImageCrudComponent implements OnInit {
+export class ImageUpdateComponent implements OnInit {
 
 	form = this._fb.group({
 		mainImage: ['', Validators.required],
@@ -31,11 +33,15 @@ export class ImageCrudComponent implements OnInit {
 		map(() => this.form.controls.imageUrl.valid)
 	);
 
-	isCreated$: Observable<boolean> = of(false);
+	imageId: number = parseInt(this._router.routerState.snapshot.url.split('/')[4]);
+	imageModel$: Observable<ImageCrudModel> = this._imageCrudService.loadImageById(this.imageId);
+	isUpdated$: Observable<boolean> = of(false);
 
 	constructor(
 		private _fb: FormBuilder,
-		private _imageCrudService: ImageCrudService) {
+		private _imageCrudService: ImageCrudService,
+		private _router: Router) {
+		this.imageModel$.subscribe(res => this.populateFormWithCurrentValues(res))
 	}
 
 	ngOnInit(): void {
@@ -50,14 +56,21 @@ export class ImageCrudComponent implements OnInit {
 			.subscribe();
 	}
 
-	createImage(): void {
+	populateFormWithCurrentValues(currentValues: any): void {
+		this.form.patchValue({
+			mainImage: currentValues.mainImage,
+			imageUrl: currentValues.imageUrl
+		});
+	}
+
+	updateImage(): void {
 		if (this.form.valid) {
 			const value = this.form.value;
 			let image: ImageCrudModel = {
 				imageUrl: value.imageUrl!,
 				mainImage: value.mainImage! === 'true'
 			};
-			this.isCreated$ = this._imageCrudService.createImage(image);
+			this.isUpdated$ = this._imageCrudService.updateImage(image, this.imageId);
 		}
 	}
 }

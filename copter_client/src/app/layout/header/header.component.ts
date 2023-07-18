@@ -27,10 +27,6 @@ export class HeaderComponent {
 		private _router: Router) {
 	}
 
-	redirectToCrud(): void {
-		this._router.navigateByUrl('/crud');
-	}
-
 	logout(): void {
 		this._sessionService.removeFromStorage("token");
 		this._router.navigateByUrl('/login');

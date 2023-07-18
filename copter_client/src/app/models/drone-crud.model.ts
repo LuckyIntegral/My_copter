@@ -1,5 +1,4 @@
 export interface DroneCrudModel {
-	"id": number,
 	"brand": string,
 	"name": string,
 	"description": string,

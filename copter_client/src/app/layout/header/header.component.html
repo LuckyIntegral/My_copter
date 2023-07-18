@@ -42,7 +42,11 @@
                             <span class="material-symbols-outlined">account_box</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/cart">View my cart</a></li>
+                            <li>
+                                <a class="dropdown-item" href="/cart" *ngIf="(hasRole$ | async) === 'CUSTOMER'">
+                                    View my cart
+                                </a>
+                            </li>
                             <li><a class="dropdown-item" role="button" (click)="logout()">Logout</a></li>
                         </ul>
                     </li>
@@ -54,8 +58,13 @@
                             <span class="material-symbols-outlined">add_box</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" role="button" (click)="redirectToCrud()">Create new drone</a></li>
-                            <li><a class="dropdown-item" role="button">Check statistic</a></li>
+                            <li><a class="dropdown-item" role="button" href="/crud/drones">New drone</a></li>
+                            <li><a class="dropdown-item" role="button" href="/crud/drones/items">All drones</a></li>
+                            <li><a class="dropdown-item" role="button" href="/crud/images">New image</a></li>
+                            <li><a class="dropdown-item" role="button" href="/crud/images/items">All images</a></li>
+                            <li><a class="dropdown-item" role="button" href="/crud/images/process">Attach/detach</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item disabled" role="button">Check statistic</a></li>
                         </ul>
                     </li>
                 </ul>

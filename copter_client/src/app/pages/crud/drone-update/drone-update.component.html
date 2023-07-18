@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Create menu</h5>
+        <h5 class="card-title">Update menu</h5>
+        <p class="card-title">Drone id: {{droneId}}</p>
         <hr class="bold-hr">
         <form [formGroup]="form">
             <div class="row">
@@ -92,19 +93,20 @@
                 </div>
             </div>
 
-            <div class="row" *ngIf="(isCreated | async)">
+            <div class="row" *ngIf="isUpdated$ | async">
                 <div class="col-md-12">
                     <div class="alert alert-success alert-dismissible fade show">
                         <span class="material-symbols-outlined">check_circle</span>
-                        Drone created!
+                        Drone updated!
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" (click)="createCopter()"
-                    [class.disabled]="!(isSubmit | async)">Submit
+            <button type="submit" class="btn btn-primary" [disabled]="!isSubmit" (click)="updateCopter()">
+                Update
             </button>
         </form>
     </div>
 </div>
+
