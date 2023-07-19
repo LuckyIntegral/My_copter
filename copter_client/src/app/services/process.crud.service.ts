@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable, of} from "rxjs";
 import {appSettings} from "../app.const";
 import {DataContainer} from "../models/data.container";
 
@@ -27,12 +27,11 @@ export class ProcessCrudService {
 		}
 		return this._http.put(appSettings.apiManager + '/process' + method, dto)
 			.pipe(
-				map(
-					res => {
-						const data = res as DataContainer;
-						return data.data
-					}
-				)
+				map(res => {
+					const data = res as DataContainer;
+					return data.data;
+				}),
+				catchError(() => of(false))
 			);
 	}
 }

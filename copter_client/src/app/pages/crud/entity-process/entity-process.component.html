@@ -1,1 +1,50 @@
-<p>entity-process works!</p>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Process menu</h5>
+        <hr class="bold-hr">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Image ID</span>
+                        <input type="number" class="form-control" id="imageId" formControlName="imageId">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" id="copterId" formControlName="copterId">
+                        <span class="input-group-text">Drone ID</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="(isSuccessful$ | async)">
+                <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        Successfully done!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="(isError$ | async)">
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible fade show">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        Check ids and try again!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" (click)="attachProcess()"
+                    [class.disabled]="!(isSubmit$ | async)">Attach
+            </button>
+
+            <button type="submit" class="btn btn-primary" (click)="detachProcess()"
+                    [class.disabled]="!(isSubmit$ | async)">Detach
+            </button>
+        </form>
+    </div>
+</div>

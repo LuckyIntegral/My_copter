@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@PreAuthorize("hasRole('CUSTOMER')")
+@PreAuthorize("hasAnyRole('CUSTOMER', 'ADMIN', 'MANAGER')")
 @RequestMapping("/my/drone/customer/role")
 public class RoleController {
 
     private final RoleFacade roleFacade;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('personal:read')")
     public ResponseEntity<DataContainer<String>> getRoleType() {
         return ResponseEntity.ok(new DataContainer<>(roleFacade.getUserRole()));
     }

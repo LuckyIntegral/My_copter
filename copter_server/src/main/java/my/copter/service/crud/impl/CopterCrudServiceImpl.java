@@ -3,6 +3,7 @@ package my.copter.service.crud.impl;
 import lombok.AllArgsConstructor;
 
 import my.copter.data.datatable.DataTableRequest;
+import my.copter.exception.BadRequestException;
 import my.copter.exception.EmptyFieldException;
 import my.copter.exception.EntityNotFoundException;
 import my.copter.persistence.sql.entity.BaseEntity;
@@ -24,6 +25,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static my.copter.util.ExceptionUtil.BAD_REQUEST_EXCEPTION;
 
 @Service
 @AllArgsConstructor
@@ -56,7 +59,11 @@ public class CopterCrudServiceImpl implements CopterCrudService {
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
         CopterImage image = copterImageRepository.findById(copterImageId)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
-        copter.getCopterImages().add(image);
+        if (!copter.getCopterImages().contains(image)) {
+            copter.getCopterImages().add(image);
+        } else {
+            throw new BadRequestException(BAD_REQUEST_EXCEPTION);
+        }
         copterRepository.save(copter);
     }
 
@@ -69,7 +76,11 @@ public class CopterCrudServiceImpl implements CopterCrudService {
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
         CopterImage image = copterImageRepository.findById(copterImageId)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
-        copter.getCopterImages().remove(image);
+        if (copter.getCopterImages().contains(image)) {
+            copter.getCopterImages().remove(image);
+        } else {
+            throw new BadRequestException(BAD_REQUEST_EXCEPTION);
+        }
         copterRepository.save(copter);
     }
 
