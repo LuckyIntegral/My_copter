@@ -35,5 +35,10 @@ export const APP_ROUTES: Routes = [
 		path: 'crud',
 		pathMatch: 'prefix',
 		loadChildren: () => import('./pages/crud/crud.routes').then(m => m.CRUD_ROUTES)
+	},
+	{
+		path: 'statistic',
+		pathMatch: 'prefix',
+		loadChildren: () => import('./pages/statistic/statistic.routes').then(m => m.STATISTIC_ROUTES)
 	}
 ];

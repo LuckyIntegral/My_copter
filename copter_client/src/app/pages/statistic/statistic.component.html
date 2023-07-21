@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="card-body">
+        <ng-container *ngIf="(eventStatList$ | async) as data">
+            <h5 class="card-title">Statistic menu</h5>
+            <hr class="bold-hr">
+            <div class="row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <table class="table table-hover table-sm">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Drone id</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let event of data.items">
+                        <tr>
+                            <td>{{event.eventId}}</td>
+                            <td>{{event.date | date: 'hh:mm dd-MM-yyyy'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-12 d-flex justify-content-center">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" role="button" [class.disabled]="data.first" (click)="showPage(0)">
+                                    &laquo;
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" role="button" (click)="showPage(data.page - 1)"
+                                   *ngIf="data.previous">
+                                    {{data.page}}
+                                </a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link">
+                                    {{data.page + 1}}
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" role="button" (click)="showPage(data.page + 1)" *ngIf="data.next">
+                                    {{data.page + 2}}
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" role="button" [class.disabled]="data.last"
+                                   (click)="showPage(data.totalPages - 1)">
+                                    &raquo;
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <app-diagram class="col-sm-6 mb-3 mb-sm-0"></app-diagram>
+            </div>
+        </ng-container>
+    </div>
+</div>

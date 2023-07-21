@@ -46,15 +46,5 @@ export class PlpComponent implements OnInit {
 		this.plpList$ = this._plpService.loadAllProducts(this.brand, this.category, page) as Observable<DataTableResponse<DronePlp>>;
 	}
 
-	showBrand(brand: string): void {
-		this.category = 'all';
-		this.brand = brand;
-	}
-
-	showCategory(category: string): void {
-		this.category = category;
-		this.brand = 'all';
-	}
-
 	protected readonly AppPriceUtil = AppPriceUtil;
 }

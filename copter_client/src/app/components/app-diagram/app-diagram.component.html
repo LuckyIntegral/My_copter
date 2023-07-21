@@ -1,0 +1,7 @@
+<div *ngIf="chartOptions.data[0].dataPoints.length > 0">
+    <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+</div>
+
+<div *ngIf="chartOptions.data[0].dataPoints.length === 0">
+    <p>No data available.</p>
+</div>
