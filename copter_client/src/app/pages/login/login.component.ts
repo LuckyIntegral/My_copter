@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
-import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {map, Observable} from "rxjs";
 import {AuthService} from "../../services/auth.service";
 import {SessionService} from "../../services/session.service";
 import {Router} from "@angular/router";
+import {FormService} from "../../services/form.service";
 
 @Component({
 	selector: 'app-login',
@@ -18,17 +19,14 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
 
-	form = this._fb.group({
-		username: ['', [Validators.required, Validators.email]],
-		password: ['', [Validators.required, Validators.minLength(8)]],
-	})
+	form = this._formService.loginForm();
 
 	isSubmit: Observable<boolean> = this.form.statusChanges.pipe(
 		map(status => status === 'VALID')
 	);
 
 	constructor(
-		private _fb: FormBuilder,
+		private _formService: FormService,
 		private _registerService: AuthService,
 		private _sessionService: SessionService,
 		private _router: Router) {

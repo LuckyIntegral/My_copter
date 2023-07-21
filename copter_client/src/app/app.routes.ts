@@ -40,5 +40,10 @@ export const APP_ROUTES: Routes = [
 		path: 'statistic',
 		pathMatch: 'prefix',
 		loadChildren: () => import('./pages/statistic/statistic.routes').then(m => m.STATISTIC_ROUTES)
+	},
+	{
+		path: 'admin-crud',
+		pathMatch: 'prefix',
+		loadChildren: () => import('./pages/manager-create/manager-create.router').then(m => m.MANAGER_CREATE_ROUTES)
 	}
 ];

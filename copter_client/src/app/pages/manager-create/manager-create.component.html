@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create manager menu</h5>
+        <hr class="bold-hr">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-6 input-group mb-3">
+                    <span class="input-group-text">Firstname</span>
+                    <input type="text" class="form-control" formControlName="firstname">
+                </div>
+                <div class="col-6 input-group mb-3">
+                    <span class="input-group-text">Lastname</span>
+                    <input type="text" class="form-control" formControlName="lastname">
+                </div>
+            </div>
+            <div class="mb-3">
+                <span class="input-group-text">Username</span>
+                <input type="email" class="form-control" formControlName="username">
+                <div class="form-text">*Must be an email address</div>
+            </div>
+            <div class="mb-3">
+                <span class="input-group-text">Password</span>
+                <input type="password" class="form-control" formControlName="password">
+                <div class="form-text">*At least 8 digits</div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!(isValid$ | async)" (click)="createManager()">Submit</button>
+
+            <div class="row" *ngIf="(isCreated$ | async)">
+                <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        Successfully created!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="(isError$ | async)">
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        Ops, looks like the username already exists!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

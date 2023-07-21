@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {CommonModule} from "@angular/common";
-import {map, Observable, tap} from "rxjs";
+import {map, Observable} from "rxjs";
 
 import {SessionService} from "../../services/session.service";
 import {AuthService} from "../../services/auth.service";
+import {FormService} from "../../services/form.service";
 
 @Component({
 	selector: 'app-register',
@@ -18,19 +19,14 @@ import {AuthService} from "../../services/auth.service";
 })
 export class RegisterComponent implements OnInit {
 
-	form = this._fb.group({
-		firstname: ['', Validators.required],
-		lastname: ['', Validators.required],
-		username: ['', [Validators.required, Validators.email]],
-		password: ['', [Validators.required, Validators.minLength(8)]],
-	})
+	form = this._formService.registerForm();
 
 	isSubmit: Observable<boolean> = this.form.statusChanges.pipe(
 		map(status => status === 'VALID')
 	);
 
 	constructor(
-		private _fb: FormBuilder,
+		private _formService: FormService,
 		private _registerService: AuthService,
 		private _sessionService: SessionService, private _router: Router) {
 	}

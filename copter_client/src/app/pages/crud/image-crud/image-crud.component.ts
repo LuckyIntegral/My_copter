@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {map, Observable, of} from "rxjs";
 import {ImageCrudService} from "../../../services/image.crud.service";
 import {ImageCrudModel} from "../../../models/image-crud.model";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {FormService} from "../../../services/form.service";
 
 @Component({
 	selector: 'app-image-crud',
@@ -18,10 +19,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 })
 export class ImageCrudComponent implements OnInit {
 
-	form = this._fb.group({
-		mainImage: ['', Validators.required],
-		imageUrl: ['', Validators.required],
-	})
+	form = this._formService.createImageForm();
 
 	isSubmit: Observable<boolean> = this.form.statusChanges.pipe(
 		map(status => status === 'VALID')
@@ -34,7 +32,7 @@ export class ImageCrudComponent implements OnInit {
 	isCreated$: Observable<boolean> = of(false);
 
 	constructor(
-		private _fb: FormBuilder,
+		private _formService: FormService,
 		private _imageCrudService: ImageCrudService) {
 	}
 

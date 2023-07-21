@@ -27,7 +27,7 @@ export class StatisticService {
 			);
 	}
 
-	loadEventStatistic(page: number = 0, size: number = 10): Observable<DataTableResponse<EventDateModel>> {
+	loadEventStatistic(page: number = 0, size: number = 8): Observable<DataTableResponse<EventDateModel>> {
 		const params: HttpParams = new HttpParams()
 			.set('page', page)
 			.set('size', size)

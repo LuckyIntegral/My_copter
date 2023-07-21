@@ -8,6 +8,29 @@ export class FormService {
 	constructor(private _formBuilder: FormBuilder) {
 	}
 
+	loginForm() {
+		return this._formBuilder.group({
+			username: ['', [Validators.required, Validators.email]],
+			password: ['', [Validators.required, Validators.minLength(8)]],
+		});
+	}
+
+	registerForm() {
+		return this._formBuilder.group({
+			firstname: ['', Validators.required],
+			lastname: ['', Validators.required],
+			username: ['', [Validators.required, Validators.email]],
+			password: ['', [Validators.required, Validators.minLength(8)]],
+		});
+	}
+
+	createImageForm() {
+		return this._formBuilder.group({
+			mainImage: ['', Validators.required],
+			imageUrl: ['', Validators.required],
+		});
+	}
+
 	createDroneForm() {
 		return this._formBuilder.group({
 			brand: ['', Validators.required],
