@@ -40,8 +40,6 @@ export class PdpComponent {
 			.pipe(() => this._cartService.addToCart(droneId, 1))
 			.subscribe(() => {
 				this._router.navigateByUrl('/cart')
-			}, (error) => {
-				this._router.navigateByUrl('/login')
 			});
 	}
 
