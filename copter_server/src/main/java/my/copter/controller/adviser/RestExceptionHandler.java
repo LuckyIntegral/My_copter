@@ -1,9 +1,6 @@
 package my.copter.controller.adviser;
 
-import my.copter.exception.EntityNotFoundException;
-import my.copter.exception.UserNotFoundException;
-import my.copter.exception.BadRequestException;
-import my.copter.exception.EmptyFieldException;
+import my.copter.exception.*;
 import my.copter.data.response.DataContainer;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,7 +12,7 @@ import org.springframework.http.HttpStatus;
 public class RestExceptionHandler {
     @ExceptionHandler(value = EntityNotFoundException.class)
     public ResponseEntity<DataContainer<String>> handleEntityNotFoundException(EntityNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new DataContainer<>(exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataContainer<>(exception.getMessage()));
     }
 
     @ExceptionHandler(value = BadRequestException.class)
@@ -30,6 +27,6 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<DataContainer<String>> handleUserNotFoundException(UserNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new DataContainer<>(exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataContainer<>(exception.getMessage()));
     }
 }
