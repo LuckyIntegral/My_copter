@@ -4,7 +4,7 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {BehaviorSubject, Observable, take} from "rxjs";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {ProductInfoModel} from "../../models/product-info.model";
-import {ProductSearchService} from "../../services/product/product-search.service";
+import {ProductSearchService} from "../../services/product/search/product-search.service";
 
 @Component({
 	selector: 'app-search',

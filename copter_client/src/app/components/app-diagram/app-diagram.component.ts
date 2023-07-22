@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DroneActivityModel} from "../../models/drone-activity.model";
-import {StatisticService} from "../../services/product/statistic.service";
+import {StatisticService} from "../../services/product/statistic/statistic.service";
 import {Router} from "@angular/router";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
 import {NgIf} from "@angular/common";

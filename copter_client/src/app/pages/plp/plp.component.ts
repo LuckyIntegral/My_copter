@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {PlpService} from "../../services/product/plp.service";
+import {PlpService} from "../../services/product/plp/plp.service";
 import {DronePlp} from "../../models/drone-plp";
 import {DataTableResponse} from "../../models/data-table.response";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";

@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {appSettings} from "../../app.const";
-import {DataContainer} from "../../models/data.container";
-import {DataTableResponse} from "../../models/data-table.response";
-import {ImageCrudModel} from "../../models/image-crud.model";
-import {ImageFullModel} from "../../models/image-full.model";
+import {appSettings} from "../../../app.const";
+import {DataContainer} from "../../../models/data.container";
+import {DataTableResponse} from "../../../models/data-table.response";
+import {ImageCrudModel} from "../../../models/image-crud.model";
+import {ImageFullModel} from "../../../models/image-full.model";
 
 @Injectable({
 	providedIn: 'root'

@@ -3,7 +3,7 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {map, Observable, of} from "rxjs";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {DroneCrudModel} from "../../../models/drone-crud.model";
-import {DroneCrudService} from "../../../services/product/drone.crud.service";
+import {DroneCrudService} from "../../../services/product/crud/drone.crud.service";
 import {FormService} from "../../../services/util/form.service";
 
 @Component({

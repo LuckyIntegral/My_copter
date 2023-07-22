@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {map, Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {appSettings} from "../../app.const";
-import {DataContainer} from "../../models/data.container";
+import {appSettings} from "../../../app.const";
+import {DataContainer} from "../../../models/data.container";
 
 @Injectable({
 	providedIn: 'root'

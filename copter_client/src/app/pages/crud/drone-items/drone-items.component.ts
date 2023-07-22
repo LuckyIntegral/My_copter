@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {DroneCrudService} from "../../../services/product/drone.crud.service";
+import {DroneCrudService} from "../../../services/product/crud/drone.crud.service";
 import {Observable, of} from "rxjs";
 import {DroneFullModel} from "../../../models/drone-full.model";
 import {DataTableResponse} from "../../../models/data-table.response";
