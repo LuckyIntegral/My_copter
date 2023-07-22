@@ -3,10 +3,10 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Observable, switchMap} from "rxjs";
 import {Router} from "@angular/router";
 import {DronePdp} from "../../models/drone-pdp";
-import {PdpService} from "../../services/pdp.service";
+import {PdpService} from "../../services/product/pdp.service";
 import {AppPriceUtil} from "../../app.price-util";
-import {CartService} from "../../services/cart.service";
-import {AuthService} from "../../services/auth.service";
+import {CartService} from "../../services/order/cart.service";
+import {AuthService} from "../../services/account/auth.service";
 
 @Component({
 	selector: 'app-pdp',

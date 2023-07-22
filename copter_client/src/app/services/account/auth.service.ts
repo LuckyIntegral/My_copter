@@ -1,11 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map, Observable, of} from "rxjs";
-
-import {AuthData} from "../models/auth.data";
-import {appSettings} from "../app.const";
+import {map, Observable} from "rxjs";
+import {AuthData} from "../../models/auth.data";
+import {appSettings} from "../../app.const";
 import {SessionService} from "./session.service";
-import {DataContainer} from "../models/data.container";
+import {DataContainer} from "../../models/data.container";
 
 @Injectable({
 	providedIn: 'root'
@@ -17,8 +16,8 @@ export class AuthService {
 
 	register(firstname: string, lastname: string, username: string, password: string, roleType: string): Observable<any> {
 		const register = {
-			firstname: firstname,
-			lastname: lastname,
+			firstName: firstname,
+			lastName: lastname,
 			username: username,
 			password: password,
 			roleType: roleType

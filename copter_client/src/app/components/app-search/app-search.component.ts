@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { BehaviorSubject, Observable, take } from "rxjs";
-import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
-import { ProductInfoModel } from "../../models/product-info.model";
-import { ProductSearchService } from "../../services/product-search.service";
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {BehaviorSubject, Observable, take} from "rxjs";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {ProductInfoModel} from "../../models/product-info.model";
+import {ProductSearchService} from "../../services/product/product-search.service";
 
 @Component({
 	selector: 'app-search',
@@ -22,11 +22,12 @@ export class AppSearchComponent implements OnInit {
 
 	private productsSub$ = new BehaviorSubject<ProductInfoModel[]>([]);
 	products$: Observable<ProductInfoModel[]> = this.productsSub$.asObservable();
-	queryForm : FormGroup = new FormGroup({
+	queryForm: FormGroup = new FormGroup({
 		"query": new FormControl()
 	});
 
-	constructor(private _productSearchService: ProductSearchService, private _router: Router) {}
+	constructor(private _productSearchService: ProductSearchService, private _router: Router) {
+	}
 
 	ngOnInit(): void {
 		this.queryForm.valueChanges
@@ -42,7 +43,6 @@ export class AppSearchComponent implements OnInit {
 					});
 			});
 	}
-
 
 	navigateToPdp(id: number) {
 		this._router.navigateByUrl('/pdp/' + id);

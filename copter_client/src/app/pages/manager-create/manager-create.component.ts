@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {map, Observable, of, timer} from "rxjs";
-import {ManagerCreateService} from "../../services/manager-create.service";
+import {ManagerCreateService} from "../../services/account/manager-create.service";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {FormService} from "../../services/form.service";
+import {FormService} from "../../services/util/form.service";
 import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({

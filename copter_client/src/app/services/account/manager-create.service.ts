@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, Observable, of} from "rxjs";
-import {appSettings} from "../app.const";
-import {DataContainer} from "../models/data.container";
+import {appSettings} from "../../app.const";
+import {DataContainer} from "../../models/data.container";
 
 @Injectable({
 	providedIn: 'root'
@@ -14,8 +14,8 @@ export class ManagerCreateService {
 
 	createManager(firstname: string, lastname: string, username: string, password: string, roleType: string): Observable<boolean> {
 		const register = {
-			firstname: firstname,
-			lastname: lastname,
+			firstName: firstname,
+			lastName: lastname,
 			username: username,
 			password: password,
 			roleType: roleType

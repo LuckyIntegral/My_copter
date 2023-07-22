@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {map, Observable, of, timer} from "rxjs";
-import {ProcessCrudService} from "../../../services/process.crud.service";
+import {ProcessCrudService} from "../../../services/product/process.crud.service";
 import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({

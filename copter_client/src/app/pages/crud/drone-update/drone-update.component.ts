@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {map, Observable, of} from "rxjs";
-import {DroneCrudService} from "../../../services/drone.crud.service";
+import {DroneCrudService} from "../../../services/product/drone.crud.service";
 import {DroneCrudModel} from "../../../models/drone-crud.model";
-import {FormService} from "../../../services/form.service";
+import {FormService} from "../../../services/util/form.service";
 import {Router} from "@angular/router";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 

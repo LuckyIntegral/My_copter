@@ -2,10 +2,10 @@ import {Component} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {map, Observable} from "rxjs";
-import {AuthService} from "../../services/auth.service";
-import {SessionService} from "../../services/session.service";
+import {AuthService} from "../../services/account/auth.service";
+import {SessionService} from "../../services/account/session.service";
 import {Router} from "@angular/router";
-import {FormService} from "../../services/form.service";
+import {FormService} from "../../services/util/form.service";
 
 @Component({
 	selector: 'app-login',

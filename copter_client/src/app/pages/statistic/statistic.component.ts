@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {StatisticService} from "../../services/statistic.service";
+import {StatisticService} from "../../services/product/statistic.service";
 import {Observable} from "rxjs";
 import {DataTableResponse} from "../../models/data-table.response";
 import {EventDateModel} from "../../models/event-date.model";

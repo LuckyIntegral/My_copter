@@ -3,10 +3,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {map, Observable} from "rxjs";
-
-import {SessionService} from "../../services/session.service";
-import {AuthService} from "../../services/auth.service";
-import {FormService} from "../../services/form.service";
+import {SessionService} from "../../services/account/session.service";
+import {AuthService} from "../../services/account/auth.service";
+import {FormService} from "../../services/util/form.service";
 
 @Component({
 	selector: 'app-register',

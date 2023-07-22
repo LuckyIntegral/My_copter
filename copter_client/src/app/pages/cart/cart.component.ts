@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CartService} from "../../services/cart.service";
+import {CartService} from "../../services/order/cart.service";
 import {map, Observable} from "rxjs";
 import {AsyncPipe, DatePipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {CartModel} from "../../models/cart.model";
