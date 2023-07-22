@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {EventDateModel} from "../../../models/event-date.model";
+import {EventDateModel} from "../../../models/statistic/event-date.model";
 import {appSettings} from "../../../app.const";
-import {DataContainer} from "../../../models/data.container";
-import {DroneActivityModel} from "../../../models/drone-activity.model";
-import {DataTableResponse} from "../../../models/data-table.response";
+import {DataContainer} from "../../../models/wrapers/data.container";
+import {DroneActivityModel} from "../../../models/statistic/drone-activity.model";
+import {DataTableResponse} from "../../../models/wrapers/data-table.response";
 
 @Injectable({
 	providedIn: 'root'

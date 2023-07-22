@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {DroneCrudService} from "../../../services/product/crud/drone.crud.service";
 import {Observable, of} from "rxjs";
-import {DroneFullModel} from "../../../models/drone-full.model";
-import {DataTableResponse} from "../../../models/data-table.response";
+import {DroneFullModel} from "../../../models/product/drone-full.model";
+import {DataTableResponse} from "../../../models/wrapers/data-table.response";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {AppPriceUtil} from "../../../app.price-util";
 import {Router} from "@angular/router";

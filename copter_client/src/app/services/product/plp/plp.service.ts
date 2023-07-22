@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {DataContainer} from "../../../models/data.container";
+import {DataContainer} from "../../../models/wrapers/data.container";
 import {map, Observable} from "rxjs";
 import {appSettings} from "../../../app.const";
-import {DataTableResponse} from "../../../models/data-table.response";
-import {DronePlp} from "../../../models/drone-plp";
+import {DataTableResponse} from "../../../models/wrapers/data-table.response";
+import {DronePlp} from "../../../models/product/drone-plp";
 
 @Injectable({
 	providedIn: 'root'

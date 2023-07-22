@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {PlpService} from "../../services/product/plp/plp.service";
-import {DronePlp} from "../../models/drone-plp";
-import {DataTableResponse} from "../../models/data-table.response";
+import {DronePlp} from "../../models/product/drone-plp";
+import {DataTableResponse} from "../../models/wrapers/data-table.response";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {AppPriceUtil} from "../../app.price-util";
 

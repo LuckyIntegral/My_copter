@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DroneActivityModel} from "../../models/drone-activity.model";
+import {DroneActivityModel} from "../../models/statistic/drone-activity.model";
 import {StatisticService} from "../../services/product/statistic/statistic.service";
 import {Router} from "@angular/router";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";

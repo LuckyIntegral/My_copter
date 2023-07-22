@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {CartService} from "../../services/order/cart.service";
 import {map, Observable} from "rxjs";
 import {AsyncPipe, DatePipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
-import {CartModel} from "../../models/cart.model";
+import {CartModel} from "../../models/order/cart.model";
 import {AppPriceUtil} from "../../app.price-util";
 
 @Component({

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {map, Observable, of} from "rxjs";
 import {ImageCrudService} from "../../../services/product/crud/image.crud.service";
-import {ImageCrudModel} from "../../../models/image-crud.model";
+import {ImageCrudModel} from "../../../models/product/image-crud.model";
 import {Router} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 

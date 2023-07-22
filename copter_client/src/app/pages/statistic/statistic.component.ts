@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {StatisticService} from "../../services/product/statistic/statistic.service";
 import {Observable} from "rxjs";
-import {DataTableResponse} from "../../models/data-table.response";
-import {EventDateModel} from "../../models/event-date.model";
+import {DataTableResponse} from "../../models/wrapers/data-table.response";
+import {EventDateModel} from "../../models/statistic/event-date.model";
 import {Router} from "@angular/router";
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {AppDiagramComponent} from "../../components/app-diagram/app-diagram.component";

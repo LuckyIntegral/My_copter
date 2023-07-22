@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {AuthData} from "../../models/auth.data";
+import {AuthData} from "../../models/account/auth.data";
 import {appSettings} from "../../app.const";
 import {SessionService} from "./session.service";
-import {DataContainer} from "../../models/data.container";
+import {DataContainer} from "../../models/wrapers/data.container";
 
 @Injectable({
 	providedIn: 'root'

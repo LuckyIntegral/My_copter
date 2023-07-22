@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable, of} from "rxjs";
-import {DataTableResponse} from "../../../models/data-table.response";
-import {ImageFullModel} from "../../../models/image-full.model";
+import {DataTableResponse} from "../../../models/wrapers/data-table.response";
+import {ImageFullModel} from "../../../models/product/image-full.model";
 import {ImageCrudService} from "../../../services/product/crud/image.crud.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
