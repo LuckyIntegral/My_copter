@@ -24,7 +24,7 @@ export class OrderService {
 			)
 	}
 
-	loadAllOrders(page: number = 0, size: number = 4): Observable<DataTableResponse<PurchaseModel>> {
+	loadAllOrders(page: number = 0, size: number = 3): Observable<DataTableResponse<PurchaseModel>> {
 		const params: HttpParams = new HttpParams()
 			.set('page', page)
 			.set('size', size)

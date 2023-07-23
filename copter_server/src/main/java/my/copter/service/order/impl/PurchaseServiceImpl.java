@@ -10,11 +10,12 @@ import my.copter.persistence.sql.entity.order.Purchase;
 import my.copter.persistence.sql.repository.order.CartRepository;
 import my.copter.persistence.sql.repository.order.PurchaseRepository;
 import my.copter.service.order.PurchaseService;
-import my.copter.util.PersistenceUtil;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +53,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public Page<Purchase> findAll(DataTableRequest request) {
-        return repository.findAll(PersistenceUtil.generatePageableByDataTableRequest(request));
+        return repository.findAll(PageRequest.of(request.getPage(), request.getSize(), Sort.by("actual").descending()));
     }
 
     private void validateFields(Purchase purchase) {
