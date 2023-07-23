@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable, of} from "rxjs";
 import {appSettings} from "../../app.const";
 import {DataContainer} from "../../models/wrapers/data.container";
 import {CartModel} from "../../models/order/cart.model";
@@ -29,7 +29,8 @@ export class CartService {
 				map(res => {
 					const data: DataContainer = res as DataContainer;
 					return data.data;
-				})
+				}),
+				catchError(() => of(false))
 			);
 	}
 }

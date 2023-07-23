@@ -36,10 +36,12 @@ export class PdpComponent {
 		if (!this._authService.isLoggedIn())
 			this._router.navigateByUrl('/login')
 		const droneId: number = parseInt(this._router.routerState.snapshot.url.split('/')[2]);
-		this.pdpDrone$
-			.pipe(() => this._cartService.addToCart(droneId, 1))
-			.subscribe(() => {
-				this._router.navigateByUrl('/cart')
+		this._cartService.addToCart(droneId, 1)
+			.subscribe(res => {
+				if (!res)
+					this._router.navigateByUrl('/login')
+				else
+					this._router.navigateByUrl('/cart')
 			});
 	}
 
