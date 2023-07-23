@@ -1,3 +1,12 @@
+<div class="row" *ngIf="(isError$ | async)">
+    <div class="col-md-12">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <span class="material-symbols-outlined">check_circle</span>
+            Ops, something went wrong, the username already exists!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 <div class="d-flex justify-content-center">
     <div class="p-0">
         <h2 class="text-center fw-semibold">Registration</h2>

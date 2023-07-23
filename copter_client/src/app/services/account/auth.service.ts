@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable, of} from "rxjs";
 import {AuthData} from "../../models/account/auth.data";
 import {appSettings} from "../../app.const";
 import {SessionService} from "./session.service";
@@ -14,7 +14,7 @@ export class AuthService {
 	constructor(private _http: HttpClient, private _sessionService: SessionService) {
 	}
 
-	register(firstname: string, lastname: string, username: string, password: string, roleType: string): Observable<any> {
+	register(firstname: string, lastname: string, username: string, password: string, roleType: string): Observable<AuthData | Boolean> {
 		const register = {
 			firstName: firstname,
 			lastName: lastname,
@@ -26,11 +26,12 @@ export class AuthService {
 			.pipe(
 				map(res => {
 					return res as AuthData;
-				})
+				}),
+				catchError(() => of(false))
 			);
 	}
 
-	authenticate(username: string, password: string): Observable<any> {
+	authenticate(username: string, password: string): Observable<AuthData | Boolean> {
 		const auth = {
 			username: username,
 			password: password,
@@ -39,7 +40,8 @@ export class AuthService {
 			.pipe(
 				map(res => {
 					return res as AuthData;
-				})
+				}),
+				catchError(() => of(false))
 			);
 	}
 

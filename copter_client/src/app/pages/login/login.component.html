@@ -1,3 +1,12 @@
+<div class="row" *ngIf="(isError$ | async)">
+    <div class="col-md-12">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <span class="material-symbols-outlined">check_circle</span>
+            Ops, something went wrong, check the data and try again!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 <div class="d-flex justify-content-center">
     <div class="p-0">
         <h2 class="text-center fw-semibold">Login</h2>
@@ -17,7 +26,7 @@
                     Click here to register
                 </a>
             </p>
-            <button type="submit" class="btn btn-primary" [disabled]="!(isSubmit | async)" (click)="login()">Submit
+            <button type="submit" class="btn btn-primary" [disabled]="!(isSubmit | async)" (click)="login()">Log in
             </button>
         </form>
     </div>

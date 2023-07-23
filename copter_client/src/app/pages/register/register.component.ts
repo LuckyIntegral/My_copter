@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {CommonModule} from "@angular/common";
-import {map, Observable} from "rxjs";
+import {map, Observable, of, timer} from "rxjs";
 import {SessionService} from "../../services/account/session.service";
 import {AuthService} from "../../services/account/auth.service";
 import {FormService} from "../../services/util/form.service";
@@ -19,10 +19,10 @@ import {FormService} from "../../services/util/form.service";
 export class RegisterComponent implements OnInit {
 
 	form = this._formService.registerForm();
-
 	isSubmit: Observable<boolean> = this.form.statusChanges.pipe(
 		map(status => status === 'VALID')
 	);
+	isError$: Observable<boolean> = of(false);
 
 	constructor(
 		private _formService: FormService,
@@ -48,9 +48,15 @@ export class RegisterComponent implements OnInit {
 		const lastname: string = value.lastname as string;
 		const username: string = value.username as string;
 		const password: string = value.password as string;
-		this._registerService.register(firstname, lastname, username, password, 'CUSTOMER').subscribe(res => {
-			this._sessionService.addToStorage("token", JSON.stringify(res));
-			this._router.navigateByUrl('/plp');
+		this._registerService.register(firstname, lastname, username, password, 'CUSTOMER')
+			.subscribe(res => {
+			if (typeof res === "boolean") {
+				this.isError$ = of(true)
+				timer(3000).subscribe(() => this.isError$ = of(false));
+			} else {
+				this._sessionService.addToStorage("token", JSON.stringify(res));
+				this._router.navigateByUrl('/plp');
+			}
 		});
 	}
 }
