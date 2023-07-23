@@ -57,6 +57,7 @@ public class PurchaseFacadeImpl implements PurchaseFacade {
             if (CollectionUtils.isNotEmpty(entries))
                 for (CartEntry entry : entries)
                 {
+                    if (entry.getQuantity() == 0) continue;
                     DroneQuantityDto dqd = new DroneQuantityDto();
                     dqd.setName(entry.getCopter().getName());
                     dqd.setDroneId(entry.getCopter().getId());
