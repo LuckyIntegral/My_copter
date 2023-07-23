@@ -66,7 +66,7 @@ public class PurchaseFacadeImpl implements PurchaseFacade {
                     dto.setPrice(dto.getPrice() + (entry.getCopter().getPrice() * entry.getQuantity()));
                 }
             return dto;
-        }).toList();
+        }).sorted((a, b) -> a.getActive() && b.getActive() ? 0 : a.getActive() ? -1 : 1).toList();
         response.setItems(items);
         return response;
     }
