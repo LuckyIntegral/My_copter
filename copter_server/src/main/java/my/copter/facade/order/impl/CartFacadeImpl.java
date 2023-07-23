@@ -44,6 +44,7 @@ public class CartFacadeImpl implements CartFacade {
         Cart cart = cartService.getActive();
         CartDto dto = new CartDto();
         dto.setCreated(cart.getCreated());
+        dto.setId(cart.getId());
         dto.setPrice(0L);
         List<CartEntry> entries = cartService.findAllByCart(cart);
         if (CollectionUtils.isNotEmpty(entries)) {

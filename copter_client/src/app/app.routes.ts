@@ -45,5 +45,20 @@ export const APP_ROUTES: Routes = [
 		path: 'admin-crud',
 		pathMatch: 'prefix',
 		loadChildren: () => import('./pages/manager-create/manager-create.router').then(m => m.MANAGER_CREATE_ROUTES)
+	},
+	{
+		path: 'admin-activity',
+		pathMatch: 'prefix',
+		loadChildren: () => import('./pages/activity/activity.routes').then(m => m.ACTIVITY_ROUTES)
+	},
+	{
+		path: 'purchase',
+		pathMatch: 'prefix',
+		loadChildren: () => import('./pages/purchase/purchase.routes').then(m => m.PURCHASE_ROUTES)
+	},
+	{
+		path: 'orders',
+		pathMatch: 'prefix',
+		loadChildren: () => import('./pages/orders/orders.routes').then(m => m.ORDERS_ROUTES)
 	}
 ];

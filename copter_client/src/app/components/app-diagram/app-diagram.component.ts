@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DroneActivityModel} from "../../models/statistic/drone-activity.model";
+import {DroneStatModel} from "../../models/statistic/drone-stat.model";
 import {StatisticService} from "../../services/product/statistic/statistic.service";
 import {Router} from "@angular/router";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
@@ -48,11 +48,11 @@ export class AppDiagramComponent implements OnInit {
 	}
 
 	async fillChart(): Promise<ChartDataPoint[]> {
-		const models: DroneActivityModel[] | undefined = await this._statisticService.loadDroneStatistic().toPromise();
+		const models: DroneStatModel[] | undefined = await this._statisticService.loadDroneStatistic().toPromise();
 		if (models === undefined) {
 			return [];
 		}
-		return models.map((item: DroneActivityModel) => ({
+		return models.map((item: DroneStatModel) => ({
 			y: item.activity,
 			name: item.event
 		}));

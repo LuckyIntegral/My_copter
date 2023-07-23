@@ -1,4 +1,4 @@
-export interface EventDateModel {
+export interface EventStatModel {
 	"eventId": number,
 	"date": Date
 }

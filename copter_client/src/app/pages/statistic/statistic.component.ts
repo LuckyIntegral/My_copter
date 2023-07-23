@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {StatisticService} from "../../services/product/statistic/statistic.service";
 import {Observable} from "rxjs";
 import {DataTableResponse} from "../../models/wrapers/data-table.response";
-import {EventDateModel} from "../../models/statistic/event-date.model";
+import {EventStatModel} from "../../models/statistic/event-stat.model";
 import {Router} from "@angular/router";
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {AppDiagramComponent} from "../../components/app-diagram/app-diagram.component";
@@ -22,7 +22,7 @@ import {AppDiagramComponent} from "../../components/app-diagram/app-diagram.comp
 })
 export class StatisticComponent {
 
-	eventStatList$: Observable<DataTableResponse<EventDateModel>>;
+	eventStatList$: Observable<DataTableResponse<EventStatModel>>;
 
 	constructor(private _statisticService: StatisticService, private _router: Router) {
 		this.eventStatList$ = this._statisticService.loadEventStatistic();
@@ -33,6 +33,6 @@ export class StatisticComponent {
 	}
 
 	showPage(page: number): void {
-		this.eventStatList$ = this._statisticService.loadEventStatistic(page) as Observable<DataTableResponse<EventDateModel>>;
+		this.eventStatList$ = this._statisticService.loadEventStatistic(page) as Observable<DataTableResponse<EventStatModel>>;
 	}
 }

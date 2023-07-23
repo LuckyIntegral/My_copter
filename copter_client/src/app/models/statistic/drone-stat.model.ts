@@ -1,4 +1,4 @@
-export interface DroneActivityModel {
+export interface DroneStatModel {
 	"event": string,
 	"activity": number
 }

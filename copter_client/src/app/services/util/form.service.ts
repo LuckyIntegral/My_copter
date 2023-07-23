@@ -8,6 +8,13 @@ export class FormService {
 	constructor(private _formBuilder: FormBuilder) {
 	}
 
+	purchaseForm() {
+		return this._formBuilder.group({
+			contact: ['', [Validators.required, Validators.minLength(8)]],
+			address: ['', [Validators.required, Validators.minLength(8)]]
+		});
+	}
+
 	loginForm() {
 		return this._formBuilder.group({
 			username: ['', [Validators.required, Validators.email]],

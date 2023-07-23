@@ -4,6 +4,7 @@ import {map, Observable} from "rxjs";
 import {AsyncPipe, DatePipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {CartModel} from "../../models/order/cart.model";
 import {AppPriceUtil} from "../../app.price-util";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-cart',
@@ -22,7 +23,7 @@ export class CartComponent {
 
 	cart$: Observable<CartModel> = this._cartService.loadCart();
 
-	constructor(private _cartService: CartService) {
+	constructor(private _cartService: CartService, private _router: Router) {
 	}
 
 	deleteProductFromCart(id: number): Observable<any> {
@@ -41,6 +42,10 @@ export class CartComponent {
 					this.cart$ = this._cartService.loadCart();
 				})
 			);
+	}
+
+	redirectToPurchase(id: number) {
+		this._router.navigateByUrl('/purchase/' + id)
 	}
 
 	protected readonly appPriceUtil = AppPriceUtil;

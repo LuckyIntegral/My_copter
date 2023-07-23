@@ -1,0 +1,87 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-center">Orders</h5>
+        <hr class="bold-hr">
+        <ng-container *ngIf="(orders$ | async) as data">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let order of data.items">
+                <tr>
+                    <td>{{order.id}}</td>
+                    <td>{{order.username}}</td>
+                    <td>{{order.contact}}</td>
+                    <td>{{order.address}}</td>
+                    <td>{{AppPriceUtil.formatNumber(order.price) + '$'}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" (click)="processPurchase(false, order.id)"
+                                *ngIf="order.active">Active
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="processPurchase(true, order.id)"
+                                *ngIf="!order.active">Done
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <table class="mb-3 table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let drone of order.drones">
+                                <td>{{drone.droneId}}</td>
+                                <td>{{drone.name}}</td>
+                                <td>{{drone.quantity}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-12 d-flex justify-content-center">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" role="button" [class.disabled]="data.first" (click)="showPage(0)">
+                            &laquo;
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" (click)="showPage(data.page - 1)" *ngIf="data.previous">
+                            {{data.page}}
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link">
+                            {{data.page + 1}}
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" (click)="showPage(data.page + 1)" *ngIf="data.next">
+                            {{data.page + 2}}
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" role="button" [class.disabled]="data.last"
+                           (click)="showPage(data.totalPages - 1)">
+                            &raquo;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ng-container>
+    </div>
+</div>

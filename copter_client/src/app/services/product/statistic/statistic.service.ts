@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {EventDateModel} from "../../../models/statistic/event-date.model";
+import {EventStatModel} from "../../../models/statistic/event-stat.model";
 import {appSettings} from "../../../app.const";
 import {DataContainer} from "../../../models/wrapers/data.container";
-import {DroneActivityModel} from "../../../models/statistic/drone-activity.model";
+import {DroneStatModel} from "../../../models/statistic/drone-stat.model";
 import {DataTableResponse} from "../../../models/wrapers/data-table.response";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class StatisticService {
 	constructor(private _http: HttpClient) {
 	}
 
-	loadDroneStatistic(): Observable<DroneActivityModel[]> {
+	loadDroneStatistic(): Observable<DroneStatModel[]> {
 		return this._http.get(appSettings.apiManager + '/statistic/products')
 			.pipe(
 				map(
@@ -27,14 +27,13 @@ export class StatisticService {
 			);
 	}
 
-	loadEventStatistic(page: number = 0, size: number = 8): Observable<DataTableResponse<EventDateModel>> {
+	loadEventStatistic(page: number = 0, size: number = 8): Observable<DataTableResponse<EventStatModel>> {
 		const params: HttpParams = new HttpParams()
 			.set('page', page)
 			.set('size', size)
 		return this._http.get(appSettings.apiManager + '/statistic', {params})
 			.pipe(
-				map(
-					res => {
+				map(res => {
 						const data = res as DataContainer;
 						return data.data
 					}

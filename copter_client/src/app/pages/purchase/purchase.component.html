@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-center">Purchase menu</h5>
+        <hr class="bold-hr">
+        <form [formGroup]="form" class="d-flex justify-content-center">
+            <div>
+                <div class="mb-3">
+                    <label class="form-label">Contact</label>
+                    <input type="text" class="form-control" formControlName="contact">
+                    <div class="form-text">Enter your contact details and the manager will contact you as soon as possible.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-control" formControlName="address">
+                    <div class="form-text">Enter your shipping address.</div>
+                </div>
+                <button type="submit" class="btn btn-primary" [class.disabled]="!(isSubmit | async)" (click)="makePurchase()">Submit</button>
+            </div>
+        </form>
+        <div class="row" *ngIf="(isSuccessful$ | async)">
+            <div class="col-md-12">
+                <div class="alert alert-success alert-dismissible fade show">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    Successfully done! The manager will contact you as soon as possible to clarify the details of delivery!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

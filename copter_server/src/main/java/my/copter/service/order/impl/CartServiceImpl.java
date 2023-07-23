@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 
 import my.copter.config.security.service.AuthenticationService;
 import my.copter.exception.BadRequestException;
+import my.copter.exception.EntityNotFoundException;
 import my.copter.persistence.sql.entity.product.Copter;
 import my.copter.persistence.sql.entity.user.Customer;
 import my.copter.persistence.sql.repository.order.CartEntryRepository;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static my.copter.util.ExceptionUtil.BAD_REQUEST_EXCEPTION;
+import static my.copter.util.ExceptionUtil.ENTITY_NOT_FOUND;
 
 @Service
 @AllArgsConstructor
@@ -90,6 +92,13 @@ public class CartServiceImpl implements CartService {
             cart = optionalCart.get();
         }
         return cart;
+    }
+
+    @Override
+    @Transactional
+    public Cart findCartById(Long id) {
+        return cartRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ENTITY_NOT_FOUND));
     }
 
     @Override

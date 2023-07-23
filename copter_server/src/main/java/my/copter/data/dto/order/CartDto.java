@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class CartDto {
+    private Long id;
     private Date created;
     private List<DroneOrderDto> drones;
     private Long price;
