@@ -3,6 +3,7 @@ package my.copter.service.crud.impl;
 import lombok.AllArgsConstructor;
 
 import my.copter.data.datatable.DataTableRequest;
+import my.copter.exception.BadRequestException;
 import my.copter.exception.EmptyFieldException;
 import my.copter.exception.EntityNotFoundException;
 import my.copter.persistence.sql.entity.product.Copter;
@@ -110,8 +111,14 @@ public class CopterCrudServiceImpl implements CopterCrudService {
         if (ObjectUtils.isEmpty(entity.getPrice())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
+        if (entity.getPrice() < 0) {
+            throw new BadRequestException(ExceptionUtil.BAD_REQUEST_EXCEPTION);
+        }
         if (ObjectUtils.isEmpty(entity.getQuantity())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
+        }
+        if (entity.getQuantity() < 0) {
+            throw new BadRequestException(ExceptionUtil.BAD_REQUEST_EXCEPTION);
         }
     }
 

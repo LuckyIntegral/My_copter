@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import my.copter.data.datatable.DataTableRequest;
 import my.copter.data.datatable.DataTableResponse;
 import my.copter.data.dto.product.CopterDto;
+import my.copter.exception.BadRequestException;
 import my.copter.facade.crud.CopterCrudFacade;
 import my.copter.persistence.sql.entity.product.Copter;
 import my.copter.persistence.sql.type.BrandType;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static my.copter.util.ExceptionUtil.BAD_REQUEST_EXCEPTION;
 
 @Service
 @AllArgsConstructor
@@ -61,7 +64,11 @@ public class CopterCrudFacadeImpl implements CopterCrudFacade {
         copter.setDescription(entity.getDescription());
         copter.setCameraResolution(entity.getCameraResolution());
         copter.setFpvCamera(entity.getFpv());
-        copter.setCategoryType(CategoryType.valueOf(entity.getCategory()));
+        try {
+            copter.setCategoryType(CategoryType.valueOf(entity.getCategory()));
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException(BAD_REQUEST_EXCEPTION);
+        }
         copter.setPrice(entity.getPrice());
         copter.setBattery(entity.getBattery());
         copter.setFlyTime(entity.getFlyTime());
