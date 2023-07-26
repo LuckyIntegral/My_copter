@@ -64,7 +64,7 @@ public class CopterImageCrudServiceImpl implements CopterImageCrudService {
         if (ObjectUtils.isEmpty(image)) {
             throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
-        if (StringUtils.isEmpty(image.getImageUrl())) {
+        if (StringUtils.isBlank(image.getImageUrl())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (ObjectUtils.isEmpty(image.getMainImage())) {

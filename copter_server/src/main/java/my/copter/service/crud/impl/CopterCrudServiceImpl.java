@@ -3,14 +3,9 @@ package my.copter.service.crud.impl;
 import lombok.AllArgsConstructor;
 
 import my.copter.data.datatable.DataTableRequest;
-import my.copter.exception.BadRequestException;
 import my.copter.exception.EmptyFieldException;
 import my.copter.exception.EntityNotFoundException;
-import my.copter.persistence.sql.entity.BaseEntity;
 import my.copter.persistence.sql.entity.product.Copter;
-import my.copter.persistence.sql.entity.product.CopterImage;
-import my.copter.persistence.sql.repository.BaseRepository;
-import my.copter.persistence.sql.repository.product.CopterImageRepository;
 import my.copter.persistence.sql.repository.product.CopterRepository;
 import my.copter.persistence.sql.type.BrandType;
 import my.copter.persistence.sql.type.CategoryType;
@@ -26,14 +21,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static my.copter.util.ExceptionUtil.BAD_REQUEST_EXCEPTION;
-
 @Service
 @AllArgsConstructor
 public class CopterCrudServiceImpl implements CopterCrudService {
 
     private final CopterRepository copterRepository;
-    private final CopterImageRepository copterImageRepository;
 
     @Override
     @Transactional
@@ -46,55 +38,21 @@ public class CopterCrudServiceImpl implements CopterCrudService {
     @Transactional
     public void update(Copter entity) {
         validateFields(entity);
-        checkExistById(entity.getId(), copterRepository);
+        checkExistById(entity.getId());
         copterRepository.save(entity);
     }
 
     @Override
     @Transactional
-    public void attachImage(Long copterId, Long copterImageId) {
-        checkExistById(copterId, copterRepository);
-        checkExistById(copterImageId, copterImageRepository);
-        Copter copter = copterRepository.findById(copterId)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
-        CopterImage image = copterImageRepository.findById(copterImageId)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
-        if (!copter.getCopterImages().contains(image)) {
-            copter.getCopterImages().add(image);
-        } else {
-            throw new BadRequestException(BAD_REQUEST_EXCEPTION);
-        }
-        copterRepository.save(copter);
-    }
-
-    @Override
-    @Transactional
-    public void detachImage(Long copterId, Long copterImageId) {
-        checkExistById(copterId, copterRepository);
-        checkExistById(copterImageId, copterImageRepository);
-        Copter copter = copterRepository.findById(copterId)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
-        CopterImage image = copterImageRepository.findById(copterImageId)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
-        if (copter.getCopterImages().contains(image)) {
-            copter.getCopterImages().remove(image);
-        } else {
-            throw new BadRequestException(BAD_REQUEST_EXCEPTION);
-        }
-        copterRepository.save(copter);
-    }
-
-    @Override
-    @Transactional
     public void delete(Long id) {
-        checkExistById(id, copterRepository);
+        checkExistById(id);
         copterRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public Copter findById(Long id) {
-        checkExistById(id, copterRepository);
+        checkExistById(id);
         return copterRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND));
     }
@@ -125,25 +83,28 @@ public class CopterCrudServiceImpl implements CopterCrudService {
         if (ObjectUtils.isEmpty(entity)) {
             throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
+        if (ObjectUtils.isEmpty(entity.getBrand())) {
+            throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
+        }
         if (!EnumUtils.isValidEnum(BrandType.class, entity.getBrand().toString())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
-        if (StringUtils.isEmpty(entity.getName())) {
+        if (StringUtils.isBlank(entity.getName())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
-        if (StringUtils.isEmpty(entity.getDescription())) {
+        if (StringUtils.isBlank(entity.getDescription())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
-        if (StringUtils.isEmpty(entity.getCameraResolution())) {
+        if (StringUtils.isBlank(entity.getCameraResolution())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (!EnumUtils.isValidEnum(CategoryType.class, entity.getCategoryType().toString())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
-        if (StringUtils.isEmpty(entity.getBattery())) {
+        if (StringUtils.isBlank(entity.getBattery())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
-        if (StringUtils.isEmpty(entity.getFlyTime())) {
+        if (StringUtils.isBlank(entity.getFlyTime())) {
             throw new EmptyFieldException(ExceptionUtil.EMPTY_FIELD_EXCEPTION);
         }
         if (ObjectUtils.isEmpty(entity.getPrice())) {
@@ -154,11 +115,11 @@ public class CopterCrudServiceImpl implements CopterCrudService {
         }
     }
 
-    private void checkExistById(Long id, BaseRepository<? extends BaseEntity> repository) {
+    private void checkExistById(Long id) {
         if (ObjectUtils.isEmpty(id)) {
             throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
-        if (!repository.existsById(id)) {
+        if (!copterRepository.existsById(id)) {
             throw new EntityNotFoundException(ExceptionUtil.ENTITY_NOT_FOUND);
         }
     }
